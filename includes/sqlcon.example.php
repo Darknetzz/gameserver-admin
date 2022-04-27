@@ -5,5 +5,5 @@ $db   = "serveradmin";
 $user = "root";
 $pass = "";
 
-$sqlcon = new mysqli($host,$db,$user,$pass);
+$sqlcon = mysqli_connect($host,$user,$pass,$db);
 ?>

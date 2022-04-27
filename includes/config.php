@@ -1,9 +1,13 @@
 <?php
-# Default config
-$adminUsername = "admin";
-$adminPassword = "CHANGEME";
+# Configuration file, make changes here
 
-# change this to a random string (up to 255 chars)
-$pepper = "Pi4V5fA2BxUe5IjLYhwhzcM33oN9GPq3HeoT7qrEU8fXBXyUTjl0yyy0MWbeW9BSbycenY0R7tCpsfucs3fONsmBEIvDh1sjw4Qn";
-$requireLogin = true;
+# General
+$title = "PHPGSAdmin";       # Friendly name shown in browser
+
+# Security
+$adminUsername = "admin";    # Initial administrator username
+$adminPassword = "CHANGEME"; # Initial administrator password
+$adminEnabled  = true;       # Enable admin account, you should falsify this after creating a custom account
+$pepper = "CHANGEME";        # Change this to a random string (up to 255 chars)
+$requireLogin = true;        # Should always be true
 ?>
