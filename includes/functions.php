@@ -18,7 +18,7 @@ function translateRole($role) {
 
 function pingServer($ip, $verbose = false) {
     if (empty($ip)) {
-        return "<font color='red'><b>Offline</b>";
+        return "<font color='red'><b>No IP</b>";
     }
     $shell = shell_exec('ping -c 1 -W 1 '.$ip);
     if ($shell) {

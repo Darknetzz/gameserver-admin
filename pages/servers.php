@@ -36,14 +36,16 @@ while ($server = $getServers->fetch_assoc()) {
         </div>
         <div class="modal-body">
             Name: '.$server['name'].'<br>
+            OS: '.$server['os'].'<br>
             IP: '.$server['ip'].'<br>
             Game: '.$server['game'].'<br>
+            Players online: <br>
             SSH User: '.$server['username'].'<br>
             Status: '.pingServer($server['ip']).'<br>
             <hr>
             <button class="btn btn-info">Broadcast</button>
             <button class="btn btn-warning">Restart gameserver</button>
-            <button class="btn btn-danger">Reboot</button>
+            <button class="btn btn-danger">Reboot host</button>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
