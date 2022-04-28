@@ -9,8 +9,17 @@ echo "<table class='table table-default'>
     <th>IP</th>
     <th>Game</th>
     <th>SSH User</th>
-    <th>Status</th>
+    <th>Host</th>
+    <th>Gameserver</th>
 </tr>";
+
+$gsStatus = pingGameServer($server['ip'], $server['port']);
+if ($gsStatus) {
+    $gsStatus = "<font color='green'>Online</font>";
+} else {
+    $gsStatus = "<font color='red'>Offline</font>";
+}
+
 while ($server = $getServers->fetch_assoc()) {
     echo "
     <tr>
@@ -23,6 +32,7 @@ while ($server = $getServers->fetch_assoc()) {
     <td>$server[game]</td>
     <td>$server[username]</td>
     <td>".pingServer($server['ip'])."</td>
+    <td>$gsStatus</td>
     </tr>";
 
     echo '

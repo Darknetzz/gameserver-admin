@@ -1,5 +1,7 @@
 <?php
 function translateRole($role) {
+    # This function can be used as a reference for roles
+    # You can also change titles here if you want.
     switch($role) {
         case 0:
             return "User";
@@ -39,5 +41,18 @@ function pingServer($ip, $verbose = false) {
     } else {
       return "<font color='red'><b>Error</b> Unable to ping.</font>";
     }
+}
+
+function pingGameServer($ip, $port, $timeout = 5) {
+  if (!empty($ip) && !empty($port)) {
+  $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
+  if (!$fp) {
+      return false; # no connection
+  } else {
+      return true; # connection established
+  }
+} else {
+  return false; # ip or port missing
+}
 }
 ?>
