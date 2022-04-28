@@ -28,7 +28,7 @@ while ($server = $getServers->fetch_assoc()) {
     $server[name]
     </a>
     </td>
-    <td><span class='label label-default'>$server[ip]</span></td>
+    <td>$server[ip]</td>
     <td>$server[game]</td>
     <td>$server[username]</td>
     <td>".pingServer($server['ip'])."</td>
@@ -45,7 +45,7 @@ while ($server = $getServers->fetch_assoc()) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            Name: '.$server['name'].'<br>
+            Name: <span class="label label-default">'.$server['name'].'</span><br>
             OS: '.$server['os'].'<br>
             IP: '.$server['ip'].'<br>
             Game: '.$server['game'].'<br>
