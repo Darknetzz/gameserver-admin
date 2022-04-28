@@ -20,6 +20,8 @@ require_once("includes/nav.php");
 ?>
 <br>
 
+<title><?php echo $cfg['title']; ?></title>
+
 <div class="container">
 <?php
 if (isset($_GET['p'])) {

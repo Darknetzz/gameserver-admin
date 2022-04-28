@@ -3,7 +3,8 @@ $getServers = "SELECT * FROM servers";
 $getServers = mysqli_query($sqlcon, $getServers);
 
 if ($getServers && $getServers->num_rows > 0) {
-echo "<table class='table table-default'>
+echo "<table class='table table-bordered'>
+<thead>
 <tr>
     <th>Name</th>
     <th>IP</th>
@@ -11,7 +12,8 @@ echo "<table class='table table-default'>
     <th>SSH User</th>
     <th>Host</th>
     <th>Gameserver</th>
-</tr>";
+</tr>
+</thead>";
 
 $gsStatus = pingGameServer($server['ip'], $server['port']);
 if ($gsStatus) {
@@ -22,54 +24,19 @@ if ($gsStatus) {
 
 while ($server = $getServers->fetch_assoc()) {
     echo "
+    <tbody>
     <tr>
-    <td>
-    <a href='#' data-bs-toggle='modal' data-bs-target='#modal$server[name]'>
-    $server[name]
-    </a>
-    </td>
+    <td><a href='?p=server&id=$server[id]'>$server[name]</a></td>
     <td>$server[ip]</td>
     <td>$server[game]</td>
     <td>$server[username]</td>
     <td>".pingServer($server['ip'])."</td>
     <td>$gsStatus</td>
-    </tr>";
-
-    echo '
-    <!-- Modal -->
-    <div class="modal fade" id="modal'.$server['name'].'" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">'.$server['name'].'</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Name: <span class="label label-default">'.$server['name'].'</span><br>
-            OS: '.$server['os'].'<br>
-            IP: '.$server['ip'].'<br>
-            Game: '.$server['game'].'<br>
-            Players online: <br>
-            SSH User: '.$server['username'].'<br>
-            Terminal: '.$server['type'].'<br>
-            Host Status: '.pingServer($server['ip']).'<br>
-            Gameserver Status: '.$gsStatus.'<br>
-            <hr>
-            <button class="btn btn-info">Broadcast</button>
-            <button class="btn btn-secondary">Terminal</button>
-            <hr>
-            <button class="btn btn-warning">Restart gameserver</button>
-            <button class="btn btn-danger">Reboot host</button>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    ';
+    </tr>
+    </tbody>";
 }
 echo "</table>";
+
 } else {
     echo "<div class='alert alert-warning'>No servers have been added yet.</div>";
 }
