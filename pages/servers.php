@@ -28,7 +28,7 @@ while ($server = $getServers->fetch_assoc()) {
     $server[name]
     </a>
     </td>
-    <td>$server[ip]</td>
+    <td><span class='label label-default'>$server[ip]</span></td>
     <td>$server[game]</td>
     <td>$server[username]</td>
     <td>".pingServer($server['ip'])."</td>
