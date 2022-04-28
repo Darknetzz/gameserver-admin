@@ -9,7 +9,6 @@ echo "<table class='table table-bordered'>
     <th>Name</th>
     <th>IP</th>
     <th>Game</th>
-    <th>SSH User</th>
     <th>Host</th>
     <th>Gameserver</th>
 </tr>
@@ -29,13 +28,13 @@ while ($server = $getServers->fetch_assoc()) {
     <td><a href='?p=server&id=$server[id]'>$server[name]</a></td>
     <td>$server[ip]</td>
     <td>$server[game]</td>
-    <td>$server[username]</td>
     <td>".pingServer($server['ip'])."</td>
     <td>$gsStatus</td>
     </tr>
     </tbody>";
 }
 echo "</table>";
+echo "<a href='?p=addserver' class='btn btn-success'>New server</a>";
 
 } else {
     echo "<div class='alert alert-warning'>No servers have been added yet.</div>";

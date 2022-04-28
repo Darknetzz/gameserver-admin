@@ -52,13 +52,41 @@ while ($server = $result->fetch_assoc()) {
             </tr>
         </tbody>
         </table>
+
+        <div class="modal" id="modal'.$server['id'].'" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit '.$server['name'].'</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                <form action="" method="POST">
+                <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
+                <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
+                <tr><td>IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
+                <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
+                <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
+                </form>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
         
         <div class="card">
         <h4 class="card-header">Actions</h4>
         <div class="card-body">
             <table class="table table-default">
-                <tr><td>Broadcast message</td> <td><button class="btn btn-info">Broadcast</button></td>
-                <tr><td>Open remote terminal</td><td><button class="btn btn-secondary">Terminal</button></td>
+                <tr><td>Edit server</td> <td><button class="btn btn-primary"
+                data-bs-toggle="modal" data-bs-target="#modal'.$server['id'].'">Edit</button></td>
+                <tr><td>Broadcast message</td> <td><button class="btn btn-primary">Broadcast</button></td>
+                <tr><td>Open remote terminal</td><td><button class="btn btn-primary">Terminal</button></td>
                 <tr><td>Restart gameserver</td> <td><button class="btn btn-danger">Restart gameserver</button></td>
                 <tr><td>Reboot host</td> <td><button class="btn btn-danger">Reboot host</button></td>
             </table>

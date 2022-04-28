@@ -11,7 +11,7 @@ echo "<table class='table table-default'>
 while ($user = $getUsers->fetch_assoc()) {
     echo "
     <tr>
-    <td>$user[username]</td>
+    <td><a href='?p=user&id=$user[id]'>$user[username]</a></td>
     <td>".translateRole($user['role'])."</td>
     </tr>";
 }

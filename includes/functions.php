@@ -55,4 +55,24 @@ function pingGameServer($ip, $port, $timeout = 5) {
   return false; # ip or port missing
 }
 }
+
+function selectorFromDB($table, $column) {
+  global $sqlcon;
+
+  $query = "SELECT * FROM $table";
+  $query = mysqli_query($sqlcon, $query);
+
+  if ($query && $query->num_rows > 0) {
+  $select = "<select name='$column' class='form-control'>";
+
+  while ($row = $query->fetch_assoc()) {
+    $select .= "<option value='$id'>$row[$column]</option>";
+  }
+
+  $select .= "</select>";
+  return $select;
+} else {
+  return null;
+}
+}
 ?>
