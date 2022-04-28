@@ -63,7 +63,7 @@ function selectorFromDB($table, $column) {
   $query = mysqli_query($sqlcon, $query);
 
   if ($query && $query->num_rows > 0) {
-  $select = "<select name='$column' class='form-control'>";
+  $select = "<select name='$column' class='form-select'>";
 
   while ($row = $query->fetch_assoc()) {
     $select .= "<option value='$id'>$row[$column]</option>";
