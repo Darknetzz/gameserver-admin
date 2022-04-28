@@ -51,10 +51,13 @@ while ($server = $getServers->fetch_assoc()) {
             Game: '.$server['game'].'<br>
             Players online: <br>
             SSH User: '.$server['username'].'<br>
+            Terminal: '.$server['type'].'<br>
             Host Status: '.pingServer($server['ip']).'<br>
             Gameserver Status: '.$gsStatus.'<br>
             <hr>
             <button class="btn btn-info">Broadcast</button>
+            <button class="btn btn-secondary">Terminal</button>
+            <hr>
             <button class="btn btn-warning">Restart gameserver</button>
             <button class="btn btn-danger">Reboot host</button>
         </div>
