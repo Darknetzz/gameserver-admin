@@ -20,7 +20,7 @@ function translateRole($role) {
 
 function pingServer($ip, $verbose = false) {
     if (empty($ip)) {
-        return "<span class='label label-secondary'>No IP</span>";
+        return "<span class='badge bg-secondary'>No IP</span>";
     }
     $shell = shell_exec('ping -c 1 -W 1 '.$ip);
     if ($shell) {
@@ -28,18 +28,18 @@ function pingServer($ip, $verbose = false) {
        && !strpos($shell, "100% packet loss") !== false
        && !strpos($shell, "0 received") !== false
        && !strpos($shell, "+1 errors") !== false) {
-        return "<span class='label label-success'>Online</span>";
+        return "<span class='badge bg-success'>Online</span>";
         if ($verbose == 1) {
         return "<pre style='color: green;'>$shell</pre></font>";
         }
       } else {
-        return "<font color='red'><span class='label label-danger'>Offline</span></font>";
+        return "<span class='badge bg-danger'>Offline</span>";
         if ($verbose == 1) {
         return "<pre style='color: red;'>$shell</pre></font>";
         }
       }
     } else {
-      return "<span class='label label-danger'>Unable to ping.</span>";
+      return "<span class='badge bg-danger'>Unable to ping.</span>";
     }
 }
 

@@ -15,9 +15,9 @@ echo "<table class='table table-default'>
 
 $gsStatus = pingGameServer($server['ip'], $server['port']);
 if ($gsStatus) {
-    $gsStatus = "<font color='green'>Online</font>";
+    $gsStatus = "<span class='badge bg-success'>Online</span>";
 } else {
-    $gsStatus = "<font color='red'>Offline</font>";
+    $gsStatus = "<span class='badge bg-danger'>Offline</span>";
 }
 
 while ($server = $getServers->fetch_assoc()) {
@@ -51,7 +51,8 @@ while ($server = $getServers->fetch_assoc()) {
             Game: '.$server['game'].'<br>
             Players online: <br>
             SSH User: '.$server['username'].'<br>
-            Status: '.pingServer($server['ip']).'<br>
+            Host Status: '.pingServer($server['ip']).'<br>
+            Gameserver Status: '.$gsStatus.'<br>
             <hr>
             <button class="btn btn-info">Broadcast</button>
             <button class="btn btn-warning">Restart gameserver</button>
