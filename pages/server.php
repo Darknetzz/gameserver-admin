@@ -69,7 +69,7 @@ while ($server = $result->fetch_assoc()) {
                 <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
                 <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
                 <tr><td>IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
-                <tr><td>Gameserver Port</td><td>input type="number" class="form-control" value="'.$server['port'].'"></td></tr>
+                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['port'].'"></td></tr>
                 <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
                 <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
                 </form>
