@@ -20,7 +20,7 @@ require_once("includes/nav.php");
 ?>
 <br>
 
-<title><?php echo $cfg['title']; ?></title>
+<title><?php echo CFG_TITLE; ?></title>
 
 <div class="container">
 <?php

@@ -43,7 +43,7 @@ function pingServer($ip, $verbose = false) {
     }
 }
 
-function pingGameServer($ip, $port, $timeout = 3) {
+function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
   if (!empty($ip) && !empty($port)) {
   $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
   if (!is_resource($fp)) {

@@ -2,13 +2,16 @@
 # Configuration file, make changes here
 
 # General
-$cfg['title'] = "PHPGSAdmin";       # Friendly name shown in browser
-$cfg['logo'] = null;                # Link or filepath to logo in navbar
+define(CFG_TITLE, "PHPGSAdmin");        # Friendly name shown in browser
+define(CFG_LOGO, null);                 # Link or filepath to logo in navbar
+
+# Servers
+define(CFG_FSOCKTIMEOUT, 10);           # Timeout of the gameserver pinger
 
 # Security
-$cfg['adminUsername'] = "admin";     # Initial administrator username
-$cfg['$adminPassword'] = "CHANGEME"; # Initial administrator password
-$cfg['$adminEnabled']  = true;       # Enable admin account, you should falsify this after creating a custom account
-$cfg['$pepper'] = "CHANGEME";        # Change this to a random string (up to 255 chars)
-$cfg['$requireLogin'] = true;        # Should always be true unless secured otherwise
+define(CFG_ADMINUSERNAME, "admin");     # Initial administrator username
+define(CFG_ADMINPASSWORD, "CHANGEME");  # Initial administrator password
+define(CFG_ADMINENABLED, true);         # Enable admin account, you should falsify this after creating a custom account
+define(CFG_PEPPER, "CHANGEME");         # Change this to a random string (up to 255 chars)
+define(CFG_REQUIRELOGIN, true);         # Should always be true unless secured otherwise
 ?>

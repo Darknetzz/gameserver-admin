@@ -1,1 +1,1 @@
-<h3>PHPServerAdmin</h3>
+<h3><?php echo CFG_TITLE; ?></h3>
