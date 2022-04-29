@@ -33,22 +33,25 @@ while ($server = $result->fetch_assoc()) {
                 <td>IP</td> <td>'.$server['ip'].'</tr>
             </tr>
             <tr>
-            <td>Game</td> <td>'.$server['game'].'</td>
+                <td>Port</td> <td>'.$server['port'].'</tr>
             </tr>
             <tr>
-            <td>Players online</td> <td></td>
+                <td>Game</td> <td>'.$server['game'].'</td>
             </tr>
             <tr>
-            <td>SSH User</td> <td>'.$server['username'].'</td>
+                <td>Players online</td> <td></td>
             </tr>
             <tr>
-            <td>Terminal</td> <td>'.$server['type'].'</td>
+                <td>SSH User</td> <td>'.$server['username'].'</td>
             </tr>
             <tr>
-            <td>Host Status</td> <td>'.pingServer($server['ip']).'</td>
+                <td>Terminal</td> <td>'.$server['type'].'</td>
             </tr>
             <tr>
-            <td>Gameserver Status</td> <td>'.$gsStatus.'</td>
+                <td>Host Status</td> <td>'.pingServer($server['ip']).'</td>
+            </tr>
+            <tr>
+                <td>Gameserver Status</td> <td>'.$gsStatus.'</td>
             </tr>
         </tbody>
         </table>
@@ -66,6 +69,7 @@ while ($server = $result->fetch_assoc()) {
                 <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
                 <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
                 <tr><td>IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
+                <tr><td>Gameserver Port</td><td>input type="number" class="form-control" value="'.$server['port'].'"></td></tr>
                 <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
                 <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
                 </form>
