@@ -43,15 +43,18 @@ function pingServer($ip, $verbose = false) {
     }
 }
 
-function pingGameServer($ip, $port, $timeout = 5) {
+function pingGameServer($ip, $port, $timeout = 3) {
   if (!empty($ip) && !empty($port)) {
   $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
-  if (!$fp) {
+  if (!is_resource($fp)) {
+      fclose($fp);
       return false; # no connection
   } else {
+      fclose($fp);
       return true; # connection established
   }
 } else {
+  fclose($fp);
   return false; # ip or port missing
 }
 }

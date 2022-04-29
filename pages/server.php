@@ -33,7 +33,7 @@ while ($server = $result->fetch_assoc()) {
                 <td>IP</td> <td>'.$server['ip'].'</tr>
             </tr>
             <tr>
-                <td>Port</td> <td>'.$server['port'].'</tr>
+                <td>Port</td> <td>'.$server['gameport'].'</tr>
             </tr>
             <tr>
                 <td>Game</td> <td>'.$server['game'].'</td>
