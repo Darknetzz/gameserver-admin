@@ -9,10 +9,15 @@ echo "<table class='table table-default'>
     <th>Role</th>
 </tr>";
 while ($user = $getUsers->fetch_assoc()) {
+    if ($user['ssh'] == 1) {
+        $sshEnabled = "(SSH-enabled)";
+    } else {
+        $sshEnabled = null;
+    }
     echo "
     <tr>
     <td><a href='?p=user&id=$user[id]'>$user[username]</a></td>
-    <td>".translateRole($user['role'])."</td>
+    <td>".translateRole($user['role'])." $sshEnabled</td>
     </tr>";
 }
 echo "</table>";
