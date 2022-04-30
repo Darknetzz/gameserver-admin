@@ -52,7 +52,7 @@ while ($server = $result->fetch_assoc()) {
         </tbody>
         </table>
 
-        <div class="modal" id="modal'.$server['id'].'" tabindex="-1">
+        <div class="modal" id="edit'.$server['id'].'" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
@@ -78,17 +78,53 @@ while ($server = $result->fetch_assoc()) {
             </div>
         </div>
         </div>
+
+        <div class="modal" id="restart'.$server['id'].'" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Restart '.$server['name'].'</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to restart '.$server['name'].'?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success">Restart</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="modal" id="reboot'.$server['id'].'" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reboot '.$server['name'].'</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reboot '.$server['name'].'?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success">Reboot</button>
+            </div>
+            </div>
+        </div>
+        </div>
         
         <div class="card">
         <h4 class="card-header">Actions</h4>
         <div class="card-body">
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary"
-                data-bs-toggle="modal" data-bs-target="#modal'.$server['id'].'">Edit</button></td>
-                <tr><td>Broadcast message</td> <td><button class="btn btn-primary">Broadcast</button></td>
-                <tr><td>Open remote terminal</td><td><button class="btn btn-primary">Terminal</button></td>
-                <tr><td>Restart gameserver</td> <td><button class="btn btn-danger">Restart gameserver</button></td>
-                <tr><td>Reboot host</td> <td><button class="btn btn-danger">Reboot host</button></td>
+                data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
+                <tr><td>Broadcast message</td> <td><button class="btn btn-primary" data-bs-target="#broadcast'.$server['id'].'">Broadcast</button></td>
+                <tr><td>Open remote terminal</td><td><button class="btn btn-primary" data-bs-target="#terminal'.$server['id'].'">Terminal</button></td>
+                <tr><td>Restart gameserver</td> <td><button class="btn btn-danger" data-bs-target="#restart'.$server['id'].'">Restart gameserver</button></td>
+                <tr><td>Reboot host</td> <td><button class="btn btn-danger" data-bs-target="#reboot'.$server['id'].'">Reboot host</button></td>
             </table>
         </div>
         </div>
