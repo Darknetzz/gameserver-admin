@@ -46,17 +46,16 @@ function pingServer($ip, $verbose = false) {
 function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
   if (!empty($ip) && !empty($port)) {
   $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
-  if (!is_resource($fp)) {
-      fclose($fp);
-      return false; # no connection
+    if (!$fp) {
+        fclose($fp);
+        return "<span class='badge bg-danger'>Offline</span>"; # no connection
+    } else {
+        fclose($fp);
+        return "<span class='badge bg-success'>Online</span>"; # connection established
+    }
   } else {
-      fclose($fp);
-      return true; # connection established
+    return "<span class='badge bg-secondary'>Missing IP or Port</span>"; # ip or port missing
   }
-} else {
-  fclose($fp);
-  return false; # ip or port missing
-}
 }
 
 function selectorFromDB($table, $column) {

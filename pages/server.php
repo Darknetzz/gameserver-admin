@@ -11,12 +11,8 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
 while ($server = $result->fetch_assoc()) {
 
-    $gsStatus = pingGameServer($server['ip'], $server['port']);
-    if ($gsStatus) {
-        $gsStatus = "<span class='badge bg-success'>Online</span>";
-    } else {
-        $gsStatus = "<span class='badge bg-danger'>Offline</span>";
-    }
+    $hsStatus = pingServer($server['ip']);
+    $gsStatus = pingGameServer($server['ip'], $server['gameport']);
 
     # Create modal for each server
     # Notice the <td> at the start, clever hack to get a "table inside table" kinda
@@ -48,7 +44,7 @@ while ($server = $result->fetch_assoc()) {
                 <td>Terminal</td> <td>'.$server['type'].'</td>
             </tr>
             <tr>
-                <td>Host Status</td> <td>'.pingServer($server['ip']).'</td>
+                <td>Host Status</td> <td>'.$hsStatus.'</td>
             </tr>
             <tr>
                 <td>Gameserver Status</td> <td>'.$gsStatus.'</td>

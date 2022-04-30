@@ -14,21 +14,18 @@ echo "<table class='table table-bordered'>
 </tr>
 </thead>";
 
-$gsStatus = pingGameServer($server['ip'], $server['port']);
-if ($gsStatus) {
-    $gsStatus = "<span class='badge bg-success'>Online</span>";
-} else {
-    $gsStatus = "<span class='badge bg-danger'>Offline</span>";
-}
-
 while ($server = $getServers->fetch_assoc()) {
+
+    $gsStatus = pingGameServer($server['ip'], $server['gameport']);
+    $hsStatus = pingServer($server['ip']);
+
     echo "
     <tbody>
     <tr>
     <td><a href='?p=server&id=$server[id]'>$server[name]</a></td>
     <td>$server[ip]</td>
     <td>$server[game]</td>
-    <td>".pingServer($server['ip'])."</td>
+    <td>$hsStatus</td>
     <td>$gsStatus</td>
     </tr>
     </tbody>";
