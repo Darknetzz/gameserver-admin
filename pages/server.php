@@ -122,7 +122,7 @@ while ($server = $result->fetch_assoc()) {
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
                 <tr><td>Broadcast message</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#broadcast'.$server['id'].'">Broadcast</button></td>
-                <tr><td>Open remote terminal</td><td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#terminal'.$server['id'].'">Terminal</button></td>
+                <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary">Terminal</a></td>
                 <tr><td>Restart gameserver</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#restart'.$server['id'].'">Restart gameserver</button></td>
                 <tr><td>Reboot host</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reboot'.$server['id'].'">Reboot host</button></td>
             </table>
