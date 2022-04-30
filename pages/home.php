@@ -1,1 +1,1 @@
-<h3><?php echo CFG_TITLE; ?></h3>
+<h3><?php echo CFG_TITLE." ".CFG_VERSION; ?></h3>
