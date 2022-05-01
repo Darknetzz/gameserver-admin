@@ -71,6 +71,27 @@ function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
   }
 }
 
+function sendSSH($ip, $port = 22, $sshuser, $sshpass, $cmd) {
+  $ssh = ssh2_connect($ip, $port);
+  if (!$ssh) {
+      $error = "<div class='alert alert-danger'>Unable to connect to terminal. Check IP and port.</div>";
+      return $error;
+      # throw new Exception($error);
+  }
+
+  $login = ssh2_auth_password($ssh, $sshuser, $sshpass);
+  if (!$login) {
+      $error = "<div class='alert alert-danger'>Unable to login as $sshuser, please check username and password for this session.</div>";
+      return $error;
+      # throw new Exception($error);
+  }
+
+  $cmd = ssh2_exec($ssh, $cmd);
+  stream_set_blocking($cmd, true);
+  $cmd_out = ssh2_fetch_stream($cmd, SSH2_STREAM_STDIO);
+  return stream_get_contents($cmd_out);
+}
+
 function selectorFromDB($table, $column) {
   global $sqlcon;
 

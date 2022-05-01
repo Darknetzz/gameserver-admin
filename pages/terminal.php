@@ -14,32 +14,22 @@ if (isset($_GET['id'])) {
             $sshuser = translateID($server['sshuser'], 'users', 'username');
             $sshpass = translateID($server['sshuser'], 'users', 'password');
 
-            $ssh = ssh2_connect($server['ip'], $server['sshport']);
-            if (!$ssh) {
-                $error = "<div class='alert alert-danger'>Unable to connect to terminal. Check IP and port.</div>";
-                echo $error;
-                throw new Exception($error);
-            }
-
-            $login = ssh2_auth_password($ssh, $sshuser, $sshpass);
-            if (!$login) {
-                $error = "<div class='alert alert-danger'>Unable to login as $sshuser, please check username and password for this session.</div>";
-                echo $error;
-                throw new Exception($error);
-            }
-
-            $cmd = ssh2_exec($ssh, "ls -la");
-            stream_set_blocking($cmd, true);
-            $cmd_out = ssh2_fetch_stream($cmd, SSH2_STREAM_STDIO);
-            echo "<code style='white-space:pre;'>".stream_get_contents($cmd_out)."</code>";
             echo "
+            <h3>$server[name]</h3>
+            <code style='white-space:pre;'>
+            <textarea class='form-control' style='height:800px;' id='term' readonly>
+            ".sendSSH($server['ip'], $server['sshport'], $sshuser, $sshpass, "pwd")."
+            </textarea></code>";
+            echo "
+            <form action='' method='POST' id='form'>
+            <input type='hidden' name='id' value='$server[id]'>
             <div class='input-group mb-3'>
             <div class='input-group-prepend'>
-                <span class='input-group-text'>$sshuser@$server[name]:~#</span>
+                <span class='input-group-text' id='prepend'>$sshuser@$server[name]:~#</span>
             </div>
-            <input type='text' class='form-control'>
+            <input type='text' name='cmd' class='form-control' id='cmd' autofocus autocomplete='off'>
             </div>
-            
+            </form>
             ";
 
         } else {
@@ -61,5 +51,26 @@ if (isset($_GET['id'])) {
                 </div>");
         }
     }
+    echo '
+    <script>
+    $("#form").submit(function (e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "pages/terminalSend.php",
+            data: $("#form").serialize(),
+            success: function(response){
+                var term = $("#term")
+                term.append("\n")
+                term.append($("#prepend").html()+" "+$("#cmd").val())
+                term.append("\n")
+                term.append(response)
+                term.scrollTop(term[0].scrollHeight - term.height());
+                $("#cmd").val("")
+            }
+        });
+    });
+    </script>
+    ';
 }
 }
