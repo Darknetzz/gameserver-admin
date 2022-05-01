@@ -14,10 +14,20 @@ while ($server = $result->fetch_assoc()) {
 
     $hsStatus = pingServer($server['ip']);
     $gsStatus = pingGameServer($server['ip'], $server['gameport']);
+    $shStatus = pingGameServer($server['ip'], $server['sshport']);
+
+    if (strpos($shStatus, "Offline") !== false) {
+        $terminalBtn = "disabled";
+        $terminalText = "SSH Port not responding";
+    } else {
+        $terminalBtn = null;
+        $terminalText = "Open Terminal";
+    }
 
     # Create modal for each server
     # Notice the <td> at the start, clever hack to get a "table inside table" kinda
     echo '
+        <h3>Server information</h3>
         <table class="table table-border">
         <tbody>
             <tr>
@@ -30,7 +40,10 @@ while ($server = $result->fetch_assoc()) {
                 <td>IP</td> <td>'.$server['ip'].'</tr>
             </tr>
             <tr>
-                <td>Port</td> <td>'.$server['gameport'].'</tr>
+                <td>SSH Port</td> <td>'.$server['sshport'].' '.$shStatus.'</td></tr>
+            </tr>
+            <tr>
+                <td>Gameserver Port</td> <td>'.$server['gameport'].'</tr>
             </tr>
             <tr>
                 <td>Game</td> <td>'.$server['game'].'</td>
@@ -66,7 +79,8 @@ while ($server = $result->fetch_assoc()) {
                 <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
                 <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
                 <tr><td>IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
-                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['port'].'"></td></tr>
+                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['gameport'].'"></td></tr>
+                <tr><td>SSH Port</td><td><input type="number" class="form-control" value="'.$server['sshport'].'"></td></tr>
                 <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
                 <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
                 </form>
@@ -122,7 +136,7 @@ while ($server = $result->fetch_assoc()) {
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
                 <tr><td>Broadcast message</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#broadcast'.$server['id'].'">Broadcast</button></td>
-                <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary">Terminal</a></td>
+                <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary '.$terminalBtn.'">'.$terminalText.'</a></td>
                 <tr><td>Restart gameserver</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#restart'.$server['id'].'">Restart gameserver</button></td>
                 <tr><td>Reboot host</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reboot'.$server['id'].'">Reboot host</button></td>
             </table>

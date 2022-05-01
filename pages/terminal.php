@@ -11,18 +11,36 @@ if (isset($_GET['id'])) {
     if ($result->num_rows == 1) {
     while ($server = $result->fetch_assoc()) {
         if (function_exists("ssh2_connect")) {
+            $sshuser = translateID($server['sshuser'], 'users', 'username');
+            $sshpass = translateID($server['sshuser'], 'users', 'password');
+
             $ssh = ssh2_connect($server['ip'], $server['sshport']);
             if (!$ssh) {
-                throw new Exception("<div class='alert alert-danger'>Unable to connect to terminal. Check IP and port.</div>");
+                $error = "<div class='alert alert-danger'>Unable to connect to terminal. Check IP and port.</div>";
+                echo $error;
+                throw new Exception($error);
             }
 
-            $login = ssh2_auth_password($ssh, '', '');
+            $login = ssh2_auth_password($ssh, $sshuser, $sshpass);
             if (!$login) {
-                throw new Exception("<div class='alert alert-danger'>Unable to login, please check username and password for this session.</div>");
+                $error = "<div class='alert alert-danger'>Unable to login as $sshuser, please check username and password for this session.</div>";
+                echo $error;
+                throw new Exception($error);
             }
 
-            $cmd = ssh2_exec($ssh, "ls");
-            echo $cmd;
+            $cmd = ssh2_exec($ssh, "ls -la");
+            stream_set_blocking($cmd, true);
+            $cmd_out = ssh2_fetch_stream($cmd, SSH2_STREAM_STDIO);
+            echo "<code style='white-space:pre;'>".stream_get_contents($cmd_out)."</code>";
+            echo "
+            <div class='input-group mb-3'>
+            <div class='input-group-prepend'>
+                <span class='input-group-text'>$sshuser@$server[name]:~#</span>
+            </div>
+            <input type='text' class='form-control'>
+            </div>
+            
+            ";
 
         } else {
             $phpversion = phpversion();

@@ -24,4 +24,5 @@ echo "</table>";
 } else {
     echo "<div class='alert alert-warning'>No users have been added yet.</div>";
 }
+echo "<a href='?p=adduser' class='btn btn-success'>New user</a>";
 ?>

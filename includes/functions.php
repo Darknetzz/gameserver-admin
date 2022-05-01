@@ -18,6 +18,19 @@ function translateRole($role) {
     }
 }
 
+function translateID($id, $table, $column) {
+  global $sqlcon;
+  $getCol = "SELECT * FROM $table WHERE id = '$id'";
+  $getCol = mysqli_query($sqlcon, $getCol);
+  if ($getCol->num_rows > 0) {
+  while ($row = $getCol->fetch_assoc()) {
+    return $row[$column];
+  }
+} else {
+  return false;
+}
+}
+
 function pingServer($ip, $verbose = false) {
     if (empty($ip)) {
         return "<span class='badge bg-secondary'>No IP</span>";
@@ -68,7 +81,7 @@ function selectorFromDB($table, $column) {
   $select = "<select name='$column' class='form-select'>";
 
   while ($row = $query->fetch_assoc()) {
-    $select .= "<option value='$id'>$row[$column]</option>";
+    $select .= "<option value='$row[id]'>$row[$column]</option>";
   }
 
   $select .= "</select>";
