@@ -3,6 +3,24 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    # Insert conditional for config admin account
+    if ($username == CFG_ADMINUSERNAME && $password == CFG_ADMINPASSWORD && CFG_ADMINENABLED == 1) {
+        # Authentication successful
+        echo "<div class='alert alert-success'>Welcome $user[username]!</div>
+
+        <script>
+        window.setTimeout(function(){
+
+            // Move to a new location or you can do something else
+            window.location.href = 'index.php';
+    
+        }, 1000);
+        </script>
+        
+        ";
+        $_SESSION['id'] = 1;
+    }
+
     $getUsers = "SELECT * FROM users WHERE username = ?";
     
     $stmt = $sqlcon->prepare($getUsers);

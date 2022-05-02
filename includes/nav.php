@@ -8,7 +8,7 @@
       <div class="navbar-nav">
         <a class="nav-link" href="?p=servers">Servers</a>
         <a class="nav-link" href="?p=users">Users</a>
-        <a class="nav-link" href="?p=tools">Tools</a>
+        <a class="nav-link" href="?p=configuration">Configuration</a>
       </div>
     </div>
   </div>

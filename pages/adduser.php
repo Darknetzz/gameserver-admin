@@ -1,6 +1,6 @@
-<h3>New user</h3>
         <?php
         if (isset($_POST['adduser'])) {
+            if (!empty($_POST['username']) && !empty($_POST['password'])) {
             $addServer = "INSERT INTO users 
             (`username`, `password`, `role`, `ssh`, `web`) 
             VALUES (?,?,?,?,?)";
@@ -14,8 +14,12 @@
                             $_POST['ssh'], $_POST['web']);
             $stmt->execute();
             echo "<div class='alert alert-success'>User $_POST[username] added!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Please fill out username and password.</div>";
+        }
         }
         ?>
+        <h3>New user</h3>
         <form action="" method="POST">
         <table class="table table-border">
         <tbody>

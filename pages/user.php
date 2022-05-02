@@ -27,6 +27,7 @@ if (isset($_GET['id'])) {
 
         echo "
         <tr><td>Username</td><td>$user[username]</td></tr>
+        <tr><td>Role</td><td>".translateRole($user['role'])."</td></tr>
         <tr><td>SSH-enabled</td><td>$ssh</td></tr>
         <tr><td>Web-enabled</td><td>$web</td></tr>
         ";
