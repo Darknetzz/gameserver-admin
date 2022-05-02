@@ -83,19 +83,19 @@ while ($server = $result->fetch_assoc()) {
                 <td>OS</td> <td>'.translateID($server['os'], 'os', 'name').'</td>
             </tr>
             <tr>
-                <td>IP</td> <td>'.$hsStatus.' '.$server['ip'].'</tr>
+                <td>IP</td> <td>'.$hsStatus.' <span class="badge bg-secondary">'.$server['ip'].'</span></tr>
             </tr>
             <tr>
-                <td>External IP</td> <td>'.$ehsStatus.' '.$server['externalip'].'</tr>
+                <td>External IP</td> <td>'.$ehsStatus.' <span class="badge bg-secondary">'.$server['externalip'].'</span></tr>
             </tr>
             <tr>
-                <td>SSH Port</td> <td>'.$shStatus.' '.$server['sshport'].'</td></tr>
+                <td>SSH Port</td> <td>'.$shStatus.' <span class="badge bg-secondary">'.$server['sshport'].'</span></td></tr>
             </tr>
             <tr>
-                <td>External SSH Port</td> <td>'.$eshStatus.' '.$server['externalsshport'].'</tr>
+                <td>External SSH Port</td> <td>'.$eshStatus.' <span class="badge bg-secondary">'.$server['externalsshport'].'</span></tr>
             </tr>
             <tr>
-                <td>Gameserver Port</td> <td>'.$gsStatus.' '.$server['gameport'].'</tr>
+                <td>Gameserver Port</td> <td>'.$gsStatus.' <span class="badge bg-secondary">'.$server['gameport'].'</span></tr>
             </tr>
             <tr>
                 <td>Game</td> <td>'.$server['game'].'</td>
@@ -130,10 +130,12 @@ while ($server = $result->fetch_assoc()) {
                 <form action="" method="POST">
                 <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
                 <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
-                <tr><td>IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
-                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['gameport'].'"></td></tr>
-                <tr><td>SSH Port</td><td><input type="number" class="form-control" value="'.$server['sshport'].'"></td></tr>
+                <tr><td>Internal IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
+                <tr><td>Internal SSH Port</td><td><input type="number" class="form-control" value="'.$server['sshport'].'"></td></tr>
+                <tr><td>External IP</td><td><input type="number" class="form-control" value="'.$server['externalip'].'"></td></tr>
+                <tr><td>External SSH Port</td><td><input type="number" class="form-control" value="'.$server['externalsshport'].'"></td></tr>
                 <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
+                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['gameport'].'"></td></tr>
                 <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
                 </form>
                 </table>
