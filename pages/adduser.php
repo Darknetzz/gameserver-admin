@@ -10,7 +10,7 @@
                 die("Error: ".$sqlcon->error);
             }
             $stmt->bind_param("ssiii", 
-                            $_POST['username'], strCrypt($_POST['password']), $_POST['name'],
+                            $_POST['username'], strCrypt($_POST['password']), $_POST['accesslevel'],
                             $_POST['ssh'], $_POST['web']);
             $stmt->execute();
             echo "<div class='alert alert-success'>User $_POST[username] added!</div>";
@@ -30,7 +30,7 @@
                 <td>Password</td> <td><input type="password" name="password" class="form-control"></td>
             </tr>
             <tr>
-                <td>Role</td> <td><?php echo selectorFromDB('roles', 'name', 'accesslevel'); ?></td>
+                <td>Role</td> <td><?php echo selectorFromDB('roles', 'name', 'accesslevel', 'accesslevel'); ?></td>
             </tr>
             <tr>
                 <td>Allow SSH</td>

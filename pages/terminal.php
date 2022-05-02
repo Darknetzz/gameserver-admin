@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
             echo "
             <h3>$server[name]</h3>
             <code style='white-space:pre;'>
-            <textarea class='form-control' style='height:800px;' id='term' readonly>
+            <textarea class='form-control' style='height:500px;' id='term' readonly>
             </textarea></code>";
             echo "
             <form action='' method='POST' id='form'>

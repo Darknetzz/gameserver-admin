@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     # Insert conditional for config admin account
     if ($username == CFG_ADMINUSERNAME && $password == CFG_ADMINPASSWORD && CFG_ADMINENABLED == 1) {
         # Authentication successful
-        echo "<div class='alert alert-success'>Welcome $user[username]!</div>
+        echo "<div class='alert alert-success'>Welcome $username!</div>
 
         <script>
         window.setTimeout(function(){

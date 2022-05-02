@@ -119,14 +119,18 @@ function sendSSH($session, $cmd) {
   return stream_get_contents($cmd_out);
 }
 
-function selectorFromDB($table, $column, $valuecol = "id") {
+function selectorFromDB($table, $column, $valuecol = "id", $name = null) {
   global $sqlcon;
+
+  if ($name == null) {
+    $name = $column;
+  }
 
   $query = "SELECT * FROM $table";
   $query = mysqli_query($sqlcon, $query);
 
   if ($query && $query->num_rows > 0) {
-  $select = "<select name='$column' class='form-select'>";
+  $select = "<select name='$name' class='form-select'>";
 
   while ($row = $query->fetch_assoc()) {
     $select .= "<option value='$row[$valuecol]'>$row[$column]</option>";

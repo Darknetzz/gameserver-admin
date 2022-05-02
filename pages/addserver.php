@@ -11,7 +11,7 @@
             }
             $stmt->bind_param("sisiisii", 
                             $_POST['sname'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
-                            $_POST['gameport'], $_POST['game'], $_POST['name'], $_POST['username']);
+                            $_POST['gameport'], $_POST['game'], $_POST['terminal'], $_POST['username']);
             $stmt->execute();
             echo "<div class='alert alert-success'>Server $_POST[name] added!</div>";
         }
@@ -23,7 +23,7 @@
                 <td>Name</td> <td><input type="text" name="sname" class="form-control"></td>
             </tr>
             <tr>
-                <td>OS</td> <td><?php echo selectorFromDB("os", "name"); ?></td>
+                <td>OS</td> <td><?php echo selectorFromDB("os", "name", "id", "os"); ?></td>
             </tr>
             <tr>
                 <td>IP</td> <td><input type="text" name="ip" class="form-control"></tr>
@@ -41,7 +41,7 @@
                 <td>SSH User</td> <td><?php echo selectorFromDB("users", "username"); ?></td>
             </tr>
             <tr>
-                <td>Terminal</td> <td><?php echo selectorFromDB("terminals", "name"); ?></td>
+                <td>Terminal</td> <td><?php echo selectorFromDB("terminals", "name", "id", "terminal"); ?></td>
             </tr>
         </tbody>
         </table>

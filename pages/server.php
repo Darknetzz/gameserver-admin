@@ -12,16 +12,62 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
 while ($server = $result->fetch_assoc()) {
 
+    if (isset($_POST['restart'])) {
+        # Restart gameserver
+        # $cmd = "cd /home/$user/;./$user restart";
+        $session = establishSSH($server['ip'], $server['sshport'], $server['sshuser'], strdCrypt($server['sshpass']));
+        $ssh = sendSSH($session, $cmd);
+        if (!$ssh) {
+            echo "<div class='alert alert-danger'>Unable to restart server.</div>";
+        } else {
+            echo "<div class='alert alert-success'>Server restarted!</div>";
+        }
+    }
+    if (isset($_POST['reboot'])) {
+        # Reboot server
+        $cmd = "reboot";
+        $session = establishSSH($server['ip'], $server['sshport'], $server['sshuser'], strdCrypt($server['sshpass']));
+        $ssh = sendSSH($session, $cmd);
+        if (!$ssh) {
+            echo "<div class='alert alert-danger'>Unable to reboot server.</div>";
+        } else {
+            echo "<div class='alert alert-success'>Server rebooted!</div>";
+        }
+    }
+
     $hsStatus = pingServer($server['ip']);
+    $ehsStatus = pingServer($server['externalip']);
+    $egsStatus = pingGameServer($server['externalip'], $server['gameport']);
+    $eshStatus = pingGameServer($server['externalip'], $server['sshport']);
     $gsStatus = pingGameServer($server['ip'], $server['gameport']);
     $shStatus = pingGameServer($server['ip'], $server['sshport']);
 
+    $esshURL = "ssh://".translateID($server['externalsshport'], "users", "username")."@$server[externalip]";
+    if (!empty($server['externalsshport']) && !empty($server['externalip'])) {
+        $sshExternal = '<a href="'.$sshExternal.'" class="btn btn-primary">External Terminal</a>';
+    } else {
+        $sshExternal = '<a href="#" class="btn btn-primary disabled">Missing External IP or Port</a>';
+    }
+
     if (strpos($shStatus, "Offline") !== false) {
+        $broadcastBtn = "disabled";
+        $broadcastText = "SSH Port not responding";
         $terminalBtn = "disabled";
         $terminalText = "SSH Port not responding";
+        $restartBtn = "disabled";
+        $restartText = "SSH Port not responding";
+        $rebootBtn = "disabled";
+        $rebootText = "SSH Port not responding";
     } else {
+        $broadcastBtn = null;
+        $broadcastText = "Broadcast";
         $terminalBtn = null;
         $terminalText = "Open Terminal";
+        $restartBtn = null;
+        $restartText = "Restart";
+        $rebootBtn = null;
+        $rebootText = "Reboot";
+
     }
 
     # Create modal for each server
@@ -37,13 +83,19 @@ while ($server = $result->fetch_assoc()) {
                 <td>OS</td> <td>'.translateID($server['os'], 'os', 'name').'</td>
             </tr>
             <tr>
-                <td>IP</td> <td>'.$server['ip'].'</tr>
+                <td>IP</td> <td>'.$hsStatus.' '.$server['ip'].'</tr>
             </tr>
             <tr>
-                <td>SSH Port</td> <td>'.$server['sshport'].' '.$shStatus.'</td></tr>
+                <td>External IP</td> <td>'.$ehsStatus.' '.$server['externalip'].'</tr>
             </tr>
             <tr>
-                <td>Gameserver Port</td> <td>'.$server['gameport'].'</tr>
+                <td>SSH Port</td> <td>'.$shStatus.' '.$server['sshport'].'</td></tr>
+            </tr>
+            <tr>
+                <td>External SSH Port</td> <td>'.$eshStatus.' '.$server['externalsshport'].'</tr>
+            </tr>
+            <tr>
+                <td>Gameserver Port</td> <td>'.$gsStatus.' '.$server['gameport'].'</tr>
             </tr>
             <tr>
                 <td>Game</td> <td>'.$server['game'].'</td>
@@ -57,12 +109,12 @@ while ($server = $result->fetch_assoc()) {
             <tr>
                 <td>Terminal</td> <td>'.translateID($server['type'], 'terminals', 'name').'</td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td>Host Status</td> <td>'.$hsStatus.'</td>
             </tr>
             <tr>
                 <td>Gameserver Status</td> <td>'.$gsStatus.'</td>
-            </tr>
+            </tr>-->
         </tbody>
         </table>
 
@@ -135,10 +187,10 @@ while ($server = $result->fetch_assoc()) {
         <div class="card-body">
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
-                <tr><td>Broadcast message</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#broadcast'.$server['id'].'">Broadcast</button></td>
-                <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary '.$terminalBtn.'">'.$terminalText.'</a></td>
-                <tr><td>Restart gameserver</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#restart'.$server['id'].'">Restart gameserver</button></td>
-                <tr><td>Reboot host</td> <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reboot'.$server['id'].'">Reboot host</button></td>
+                <tr><td>Broadcast message</td> <td><button data-bs-toggle="modal" data-bs-target="#broadcast'.$server['id'].'" class="btn btn-primary '.$broadcastBtn.'">'.$broadcastText.'</button></td>
+                <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary '.$terminalBtn.'">'.$terminalText.'</a> '.$sshExternal.'</td>
+                <tr><td>Restart gameserver</td> <td><button data-bs-toggle="modal" data-bs-target="#restart'.$server['id'].'" class="btn btn-danger '.$restartBtn.'">'.$restartText.'</button></td>
+                <tr><td>Reboot host</td> <td><button data-bs-toggle="modal" data-bs-target="#reboot'.$server['id'].'" class="btn btn-danger '.$rebootBtn.'">'.$rebootText.'</button></td>
             </table>
         </div>
         </div>

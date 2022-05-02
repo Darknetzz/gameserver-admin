@@ -7,7 +7,7 @@ define('CFG_LOGO', null);                 # Link or filepath to logo in navbar
 define('CFG_VERSION', "1.0");             # Version number
 
 # Servers
-define('CFG_FSOCKTIMEOUT', 1);           # Timeout of the gameserver pinger
+define('CFG_FSOCKTIMEOUT', 3);           # Timeout of the gameserver pinger
 
 # Security
 define('CFG_ADMINUSERNAME', "admin");     # Initial administrator username
