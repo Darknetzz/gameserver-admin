@@ -20,13 +20,18 @@ if (isset($_POST['id']) && isset($_POST['cmd'])) {
         $sshpass = translateID($server['sshuser'], 'users', 'password');
         # For every command sent, a new session is established. Not sure how to work around that yet.
         # Perhaps saving the session to the PHP session could solve it?
-        if (!isset($_SESSION['sshSession']) || $_SESSION['sshid'] <> $server['id']) {
-            $_SESSION['sshid'] = $server['id'];
-            $_SESSION['sshSession'] = establishSSH($server['ip'], $server['sshport'], $sshuser, $sshpass);
-            $session = $_SESSION['sshSession'];
-            echo "Session $_SESSION[sshid] started\n";
+        # Edit: There is no way to store a resource (active connection) in a session var:
+        # https://stackoverflow.com/questions/11432517/php-ssh2-put-ssh-connection-resource-in-session
+        if (!isset($_SESSION['sshSession']) || $_SESSION['sshid'] != $server['id']) {
+            # $_SESSION['sshid'] = $server['id'];
+            # $_SESSION['sshSession'] = establishSSH($server['ip'], $server['sshport'], $sshuser, $sshpass);
+            $session = establishSSH($server['ip'], $server['sshport'], $sshuser, $sshpass);
+            # echo "Session $_SESSION[sshid] started\n";
         }
-        $session = $_SESSION['sshSession'];
+        $session = establishSSH($server['ip'], $server['sshport'], $sshuser, $sshpass);
+        if (!is_resource($session)) {
+            die("Your session is not a resource.");
+        }
         $ssh = sendSSH($session, $_POST['cmd']);
         if (!empty($ssh)) {
             echo $ssh;

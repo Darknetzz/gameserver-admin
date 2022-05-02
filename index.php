@@ -24,6 +24,9 @@ require_once("includes/nav.php");
 
 <div class="container">
 <?php
+if (CFG_REQUIRELOGIN == true && !isset($_SESSION['id'])) {
+    include_once("pages/login.php");
+} else {
 if (isset($_GET['p'])) {
     $fp = "pages/".$_GET['p'].".php";
     if (file_exists($fp)) {
@@ -33,6 +36,7 @@ if (isset($_GET['p'])) {
     }
 } else {
     include_once("pages/home.php");
+}
 }
 ?>
 </div>
