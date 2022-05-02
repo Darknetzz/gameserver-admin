@@ -9,12 +9,12 @@
             if (!empty($sqlcon->error)) {
                 die("Error: ".$sqlcon->error);
             }
-            $stmt->bind_param("sisiisii", 
+            $stmt->bind_param("sisiisiiss", 
                             $_POST['sname'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
                             $_POST['gameport'], $_POST['game'], $_POST['terminal'], $_POST['username'],
                             $_POST['externalip'], $_POST['externalsshport']);
             $stmt->execute();
-            echo "<div class='alert alert-success'>Server $_POST[name] added!</div>";
+            echo "<div class='alert alert-success'>Server $_POST[sname] added!</div>";
         }
         ?>
         <form action="" method="POST">

@@ -42,9 +42,9 @@ while ($server = $result->fetch_assoc()) {
     $gsStatus = pingGameServer($server['ip'], $server['gameport']);
     $shStatus = pingGameServer($server['ip'], $server['sshport']);
 
-    $esshURL = "ssh://".translateID($server['externalsshport'], "users", "username")."@$server[externalip]";
+    $esshURL = "ssh://".translateID($server['sshuser'], "users", "username")."@$server[externalip]:$server[externalsshport]";
     if (!empty($server['externalsshport']) && !empty($server['externalip'])) {
-        $sshExternal = '<a href="'.$sshExternal.'" class="btn btn-primary">External Terminal</a>';
+        $sshExternal = '<a href="'.$esshURL.'" class="btn btn-primary">External Terminal</a>';
     } else {
         $sshExternal = '<a href="#" class="btn btn-primary disabled">Missing External IP or Port</a>';
     }
