@@ -31,9 +31,8 @@ while ($server = $getServers->fetch_assoc()) {
     </tbody>";
 }
 echo "</table>";
-echo "<a href='?p=addserver' class='btn btn-success'>New server</a>";
-
 } else {
     echo "<div class='alert alert-warning'>No servers have been added yet.</div>";
 }
+echo "<a href='?p=addserver' class='btn btn-success'>New server</a>";
 ?>
