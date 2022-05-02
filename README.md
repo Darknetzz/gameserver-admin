@@ -2,7 +2,7 @@
 A webserver that can monitor and control gameservers remotely.
 
 # Prerequisites
-- Any Linux server with PHP > 7 and MySQL installed.
+- Any Linux server with Apache/Nginx, PHP > 7 and MySQL installed.
 
 # How to install
 - cd /var/www/html
