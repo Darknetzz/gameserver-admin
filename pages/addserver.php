@@ -27,13 +27,13 @@
                 <td>OS</td> <td><?php echo selectorFromDB("os", "name", "id", "os"); ?></td>
             </tr>
             <tr>
-                <td>Internal IP</td> <td><input type="text" name="ip" class="form-control"></tr>
+                <td>Internal IP</td> <td><input type="text" name="ip" class="form-control" value="<?php echo $_SERVER['SERVER_ADDR']; ?>"></tr>
             </tr>
             <tr>
                 <td>Internal SSH Port</td> <td><input type="number" name="sshport" value="22" class="form-control"></td></tr>
             </tr>
             <tr>
-                <td>External IP</td> <td><input type="number" name="externalip" class="form-control" value="<?php echo $_SERVER['SERVER_ADDR']; ?>"></td>
+                <td>External IP</td> <td><input type="text" name="externalip" class="form-control" value="<?php echo file_get_contents("https://icanhazip.com"); ?>"></td>
             </tr>
             <tr>
                 <td>External SSH Port</td> <td><input type="number" name="externalsshport" class="form-control"></td>
