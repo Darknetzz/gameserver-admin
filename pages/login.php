@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
         
         ";
         $_SESSION['id'] = 1;
-    }
+    } else {
 
     $getUsers = "SELECT * FROM users WHERE username = ?";
     
@@ -55,6 +55,7 @@ if (isset($_POST['login'])) {
     } else {
         echo "<div class='alert alert-danger'>Wrong username/password</div>";
     }
+}
 }
 ?>
 
