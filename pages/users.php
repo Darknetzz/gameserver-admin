@@ -3,8 +3,8 @@ $getUsers = "SELECT * FROM users";
 $getUsers = mysqli_query($sqlcon, $getUsers);
 
 if ($getUsers && $getUsers->num_rows > 0) {
-echo "<table class='table table-default'>
-<tr>
+echo "<table class='table table-bordered'>
+<tr class='bg-info'>
     <th>Username</th>
     <th>Role</th>
 </tr>";

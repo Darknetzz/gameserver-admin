@@ -5,7 +5,7 @@ $getServers = mysqli_query($sqlcon, $getServers);
 if ($getServers && $getServers->num_rows > 0) {
 echo "<table class='table table-bordered'>
 <thead>
-<tr>
+<tr class='bg-info'>
     <th>Name</th>
     <th>IP</th>
     <th>Game</th>
