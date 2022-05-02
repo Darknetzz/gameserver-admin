@@ -3,12 +3,17 @@
         if (isset($_POST['addserver'])) {
             $addServer = "INSERT INTO servers 
             (`name`, `os`, `ip`, `sshport`, `gameport`, `game`, `type`, `sshuser`) 
-            VALUES (?,?,?,?,?,?,?,?,?)";
+            VALUES (?,?,?,?,?,?,?,?)";
     
             $stmt = $sqlcon->prepare($addServer);
-            $stmt->bind_param("sisiisii", $_POST['name'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
-                                          $_POST['gameport'], $_POST['game'], $_POST['name'], $_POST['username']);
+            if (!empty($sqlcon->error)) {
+                die("Error: ".$sqlcon->error);
+            }
+            $stmt->bind_param("sisiisii", 
+                            $_POST['name'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
+                            $_POST['gameport'], $_POST['game'], $_POST['name'], $_POST['username']);
             $stmt->execute();
+            echo "<div class='alert alert-success'>Server $_POST[name] added!</div>";
         }
         ?>
         <form action="" method="POST">
