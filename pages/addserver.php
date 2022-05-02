@@ -10,7 +10,7 @@
                 die("Error: ".$sqlcon->error);
             }
             $stmt->bind_param("sisiisii", 
-                            $_POST['name'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
+                            $_POST['sname'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
                             $_POST['gameport'], $_POST['game'], $_POST['name'], $_POST['username']);
             $stmt->execute();
             echo "<div class='alert alert-success'>Server $_POST[name] added!</div>";
@@ -20,7 +20,7 @@
         <table class="table table-border">
         <tbody>
             <tr>
-                <td>Name</td> <td><input type="text" name="name" class="form-control"></td>
+                <td>Name</td> <td><input type="text" name="sname" class="form-control"></td>
             </tr>
             <tr>
                 <td>OS</td> <td><?php echo selectorFromDB("os", "name"); ?></td>

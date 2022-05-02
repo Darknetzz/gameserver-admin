@@ -34,7 +34,7 @@ while ($server = $result->fetch_assoc()) {
                 <td>Name</td> <td><span class="badge bg-info">'.$server['name'].'</span></td>
             </tr>
             <tr>
-                <td>OS</td> <td>'.$server['os'].'</td>
+                <td>OS</td> <td>'.translateID($server['os'], 'os', 'name').'</td>
             </tr>
             <tr>
                 <td>IP</td> <td>'.$server['ip'].'</tr>
@@ -52,10 +52,10 @@ while ($server = $result->fetch_assoc()) {
                 <td>Players online</td> <td></td>
             </tr>
             <tr>
-                <td>SSH User</td> <td>'.$server['username'].'</td>
+                <td>SSH User</td> <td>'.translateID($server['username'], 'users', 'username').'</td>
             </tr>
             <tr>
-                <td>Terminal</td> <td>'.$server['type'].'</td>
+                <td>Terminal</td> <td>'.translateID($server['type'], 'terminals', 'name').'</td>
             </tr>
             <tr>
                 <td>Host Status</td> <td>'.$hsStatus.'</td>
