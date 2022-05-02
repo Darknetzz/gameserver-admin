@@ -13,12 +13,13 @@ if (isset($_GET['id'])) {
         if (function_exists("ssh2_connect")) {
             $sshuser = translateID($server['sshuser'], 'users', 'username');
             $sshpass = translateID($server['sshuser'], 'users', 'password');
+            $session = establishSSH($server['ip'], $server['port'], $sshuser, $sshpass);
 
             echo "
             <h3>$server[name]</h3>
             <code style='white-space:pre;'>
             <textarea class='form-control' style='height:800px;' id='term' readonly>
-            ".sendSSH($server['ip'], $server['sshport'], $sshuser, $sshpass, "pwd")."
+            ".sendSSH($session, "pwd")."
             </textarea></code>";
             echo "
             <form action='' method='POST' id='form'>
@@ -62,9 +63,9 @@ if (isset($_GET['id'])) {
             success: function(response){
                 var term = $("#term")
                 var cmd = $("#cmd")
-                cmd.val("")
                 term.append("\n")
                 term.append($("#prepend").html()+" "+cmd.val())
+                cmd.val("")
                 term.append("\n")
                 term.append(response)
                 term.scrollTop(term[0].scrollHeight - term.height());

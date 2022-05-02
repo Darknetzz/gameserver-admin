@@ -17,8 +17,9 @@ if (isset($_POST['id']) && isset($_POST['cmd'])) {
     while ($server = $result->fetch_assoc()) {
         $sshuser = translateID($server['sshuser'], 'users', 'username');
         $sshpass = translateID($server['sshuser'], 'users', 'password');
-        echo sendSSH($server['ip'], $server['sshport'], $sshuser, $sshpass, $_POST['cmd']);
-    }
+        $session = establishSSH($server['ip'], $server['sshport'], $sshuser, $sshpass);
+        echo sendSSH($session, $_POST['cmd']);
+        }
     } else {
         echo "Command failed to send. No server with this ID.";
     }
