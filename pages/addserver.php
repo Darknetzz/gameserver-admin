@@ -30,7 +30,7 @@
                 <td>IP</td> <td><input type="text" name="ip" class="form-control"></tr>
             </tr>
             <tr>
-                <td>SSH Port</td> <td><input type="number" name="sshport" class="form-control"></td></tr>
+                <td>SSH Port</td> <td><input type="number" name="sshport" value="22" class="form-control"></td></tr>
             </tr>
             <tr>
                 <td>External IP</td> <td><input type="number" name="externalip" class="form-control"></td>
