@@ -102,18 +102,14 @@ function establishSSH($ip, $port = 22, $sshuser, $sshpass) {
         # throw new Exception($error);
     }
 
-    $login = ssh2_auth_password($ssh, $sshuser, $sshpass);
+    $login = ssh2_auth_password($ssh, $sshuser, strdCrypt($sshpass));
     if (!$login) {
         $error = "Unable to login as $sshuser, please check username and password for this session.";
         return $error;
         # throw new Exception($error);
     }
 
-    if ($ssh) {
-      return $ssh;
-    } else {
-      return "Something went wrong while connecting to terminal.";
-    }
+    return $ssh;
   }
 
 function sendSSH($session, $cmd) {
