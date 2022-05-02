@@ -61,12 +61,13 @@ if (isset($_GET['id'])) {
             data: $("#form").serialize(),
             success: function(response){
                 var term = $("#term")
+                var cmd = $("#cmd")
+                cmd.val("")
                 term.append("\n")
-                term.append($("#prepend").html()+" "+$("#cmd").val())
+                term.append($("#prepend").html()+" "+cmd.val())
                 term.append("\n")
                 term.append(response)
                 term.scrollTop(term[0].scrollHeight - term.height());
-                $("#cmd").val("")
             }
         });
     });
