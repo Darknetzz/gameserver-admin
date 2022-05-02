@@ -2,8 +2,8 @@
         <?php
         if (isset($_POST['addserver'])) {
             $addServer = "INSERT INTO servers 
-            (`name`, `os`, `ip`, `sshport`, `gameport`, `game`, `type`, `sshuser`) 
-            VALUES (?,?,?,?,?,?,?,?)";
+            (`name`, `os`, `ip`, `sshport`, `gameport`, `game`, `type`, `sshuser`, `externalip`, `externalsshport`) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)";
     
             $stmt = $sqlcon->prepare($addServer);
             if (!empty($sqlcon->error)) {
@@ -11,7 +11,8 @@
             }
             $stmt->bind_param("sisiisii", 
                             $_POST['sname'], $_POST['os'], $_POST['ip'], $_POST['sshport'],
-                            $_POST['gameport'], $_POST['game'], $_POST['terminal'], $_POST['username']);
+                            $_POST['gameport'], $_POST['game'], $_POST['terminal'], $_POST['username'],
+                            $_POST['externalip'], $_POST['externalsshport']);
             $stmt->execute();
             echo "<div class='alert alert-success'>Server $_POST[name] added!</div>";
         }
@@ -30,6 +31,15 @@
             </tr>
             <tr>
                 <td>SSH Port</td> <td><input type="number" name="sshport" class="form-control"></td></tr>
+            </tr>
+            <tr>
+                <td>External IP</td> <td><input type="number" name="externalip" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>External SSH Port</td> <td><input type="number" name="externalsshport" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Terminal</td> <td><?php echo selectorFromDB("terminals", "name", "id", "terminal"); ?></td>
             </tr>
             <tr>
                 <td>Gameserver Port</td> <td><input type="number" name="gameport" class="form-control"></tr>
