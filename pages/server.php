@@ -52,7 +52,7 @@ while ($server = $result->fetch_assoc()) {
                 <td>Players online</td> <td></td>
             </tr>
             <tr>
-                <td>SSH User</td> <td>'.translateID($server['username'], 'users', 'username').'</td>
+                <td>SSH User</td> <td>'.translateID($server['sshuser'], 'users', 'username').'</td>
             </tr>
             <tr>
                 <td>Terminal</td> <td>'.translateID($server['type'], 'terminals', 'name').'</td>

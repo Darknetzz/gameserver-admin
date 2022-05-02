@@ -74,19 +74,24 @@ function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
 function establishSSH($ip, $port = 22, $sshuser, $sshpass) {
     $ssh = ssh2_connect($ip, $port);
     if (!$ssh) {
-        $error = "<div class='alert alert-danger'>Unable to connect to terminal. Check IP and port.</div>";
+        $error = "Unable to connect to terminal. Check IP and port.";
         return $error;
         # throw new Exception($error);
     }
 
     $login = ssh2_auth_password($ssh, $sshuser, $sshpass);
     if (!$login) {
-        $error = "<div class='alert alert-danger'>Unable to login as $sshuser, please check username and password for this session.</div>";
+        $error = "Unable to login as $sshuser, please check username and password for this session.";
         return $error;
         # throw new Exception($error);
     }
-    return $ssh;
-}
+
+    if ($ssh) {
+      return $ssh;
+    } else {
+      return "Something went wrong while connecting to terminal.";
+    }
+  }
 
 function sendSSH($session, $cmd) {
   $cmd = ssh2_exec($session, $cmd);
