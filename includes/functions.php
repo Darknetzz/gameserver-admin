@@ -18,6 +18,28 @@ function translateRole($role) {
     }
 }
 
+function strCrypt($string, $passphrase = CFG_PASSPHRASE, $method = "AES-256-CBC") {
+  $passphrase = hash('sha512', $passphrase, true);
+  $iv = openssl_random_pseudo_bytes(16);
+
+  $ciphertext = openssl_encrypt($string, $method, $passphrase, OPENSSL_RAW_DATA, $iv);
+  $hash = hash_hmac('sha512', $ciphertext.$iv, $passphrase, true);
+
+  return base64_encode($iv.$hash.$ciphertext);
+}
+
+function strdCrypt($string, $key = CFG_PASSPHRASE, $method = "AES-256-CBC") {
+  $string = base64_decode($string);
+  $iv = substr($string, 0,16);
+  $hash = substr($string, 16,80);
+  $ciphertext = substr($string, 80);
+  $passphrase = hash('sha512', $passphrase, true);
+
+  if (!hash_equals(hash_hmac('sha512', $ciphertext.$iv, $passphrase, true), $hash)) return null;
+
+  return openssl_decrypt($ciphertext, $method, $passphrase, OPENSSL_RAW_DATA, $iv);
+}
+
 function translateID($id, $table, $column) {
   global $sqlcon;
   $getCol = "SELECT * FROM $table WHERE id = '$id'";
