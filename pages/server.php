@@ -132,7 +132,7 @@ while ($server = $result->fetch_assoc()) {
                 <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
                 <tr><td>Internal IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
                 <tr><td>Internal SSH Port</td><td><input type="number" class="form-control" value="'.$server['sshport'].'"></td></tr>
-                <tr><td>External IP</td><td><input type="number" class="form-control" value="'.$server['externalip'].'"></td></tr>
+                <tr><td>External IP</td><td><input type="text" class="form-control" value="'.$server['externalip'].'"></td></tr>
                 <tr><td>External SSH Port</td><td><input type="number" class="form-control" value="'.$server['externalsshport'].'"></td></tr>
                 <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
                 <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['gameport'].'"></td></tr>
