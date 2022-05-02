@@ -1,4 +1,5 @@
 <?php
+# Refer to database -> roles
 function translateRole($role) {
     # This function can be used as a reference for roles
     # You can also change titles here if you want.
@@ -20,7 +21,7 @@ function translateRole($role) {
 
 function strCrypt($string, $passphrase = CFG_PASSPHRASE, $method = "AES-256-CBC") {
   $passphrase = hash('sha512', $passphrase, true);
-  $iv = openssl_random_pseudo_bytes(16);
+  $iv = openssl_random_pseudo_bytes(32);
 
   $ciphertext = openssl_encrypt($string, $method, $passphrase, OPENSSL_RAW_DATA, $iv);
   $hash = hash_hmac('sha512', $ciphertext.$iv, $passphrase, true);
@@ -28,14 +29,14 @@ function strCrypt($string, $passphrase = CFG_PASSPHRASE, $method = "AES-256-CBC"
   return base64_encode($iv.$hash.$ciphertext);
 }
 
-function strdCrypt($string, $key = CFG_PASSPHRASE, $method = "AES-256-CBC") {
+function strdCrypt($string, $passphrase = CFG_PASSPHRASE, $method = "AES-256-CBC") {
   $string = base64_decode($string);
-  $iv = substr($string, 0,16);
-  $hash = substr($string, 16,80);
-  $ciphertext = substr($string, 80);
+  $iv = substr($string,0,32);
+  $hash = substr($string,32,96);
+  $ciphertext = substr($string,96);
   $passphrase = hash('sha512', $passphrase, true);
 
-  if (!hash_equals(hash_hmac('sha512', $ciphertext.$iv, $passphrase, true), $hash)) return null;
+  #if (!hash_equals(hash_hmac('sha512', $ciphertext.$iv, $passphrase, true), $hash)) return null;
 
   return openssl_decrypt($ciphertext, $method, $passphrase, OPENSSL_RAW_DATA, $iv);
 }
@@ -122,7 +123,7 @@ function sendSSH($session, $cmd) {
   return stream_get_contents($cmd_out);
 }
 
-function selectorFromDB($table, $column) {
+function selectorFromDB($table, $column, $valuecol = "id") {
   global $sqlcon;
 
   $query = "SELECT * FROM $table";
@@ -132,7 +133,7 @@ function selectorFromDB($table, $column) {
   $select = "<select name='$column' class='form-select'>";
 
   while ($row = $query->fetch_assoc()) {
-    $select .= "<option value='$row[id]'>$row[$column]</option>";
+    $select .= "<option value='$row[$valuecol]'>$row[$column]</option>";
   }
 
   $select .= "</select>";

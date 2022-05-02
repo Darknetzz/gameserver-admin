@@ -19,9 +19,16 @@ if (isset($_GET['id'])) {
             $ssh = "<span class='badge bg-danger'>No</span>";
         }
 
+        if ($user['web'] == 1) {
+            $web = "<span class='badge bg-success'>Yes</span>";
+        } else {
+            $web = "<span class='badge bg-danger'>No</span>";
+        }
+
         echo "
         <tr><td>Username</td><td>$user[username]</td></tr>
         <tr><td>SSH-enabled</td><td>$ssh</td></tr>
+        <tr><td>Web-enabled</td><td>$web</td></tr>
         ";
     }
     echo "</table>";
