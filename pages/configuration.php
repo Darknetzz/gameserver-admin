@@ -2,7 +2,7 @@
 $getcfg = "SELECT * FROM config ORDER BY category";
 $getcfg = mysqli_query($sqlcon, $getcfg);
 
-echo "<table class='table'>";
+echo "<table class='table table-".CFG_TABLESTYLE."'>";
 echo "<tr class='bg-".CFG_TABLEHEADERCOLOR."'><th>Variable</th><th>Value</th><th>Description</th></tr>";
 $curcat = "";
 while ($config = $getcfg->fetch_assoc()) {
