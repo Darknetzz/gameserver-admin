@@ -102,45 +102,50 @@ while ($server = $result->fetch_assoc()) {
     echo '
         <h3>Server information</h3>
         <table class="table table-border">
+        <thead>
+        <tr class="bg-info">
+            <th>Property</th> <th>Value</th> <th>Status (if applicable)</th>
+        </tr>
+        </thead>
         <tbody>
             <tr>
-                <td>Name</td> <td><span class="badge bg-info">'.echoOr($_POST['sname'], $server['name']).'</span></td>
+                <td>Name</td> <td>'.echoOr($_POST['sname'], $server['name']).'</td><td></td>
             </tr>
             <tr>
-                <td>OS</td> <td>'.echoOr(translateID($_POST['os'], 'os', 'name'), translateID($server['os'], 'os', 'name')).'</td>
+                <td>OS</td> <td>'.echoOr(translateID($_POST['os'], 'os', 'name'), translateID($server['os'], 'os', 'name')).'</td><td></td>
             </tr>
             <tr>
-                <td>IP</td> <td>'.$hsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['ip'], $server['ip']).'</span></tr>
+                <td>Internal IP</td> <td>'.echoOr($_POST['ip'], $server['ip']).'</td><td>'.$hsStatus.'</td>
             </tr>
             <tr>
-                <td>External IP</td> <td>'.$ehsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['externalip'], $server['externalip']).'</span></tr>
+                <td>External IP</td> <td>'.echoOr($_POST['externalip'], $server['externalip']).'</td><td>'.$ehsStatus.'</td>
             </tr>
             <tr>
-                <td>SSH Port</td> <td>'.$shStatus.' <span class="badge bg-secondary">'.echoOr($_POST['sshport'], $server['sshport']).'</span></td></tr>
+                <td>Internal SSH Port</td> <td>'.echoOr($_POST['sshport'], $server['sshport']).'</td><td>'.$shStatus.'</td>
             </tr>
             <tr>
-                <td>External SSH Port</td> <td>'.$eshStatus.' <span class="badge bg-secondary">'.echoOr($_POST['externalsshport'], $server['externalsshport']).'</span></tr>
+                <td>External SSH Port</td> <td>'.echoOr($_POST['externalsshport'], $server['externalsshport']).'</td><td>'.$eshStatus.'</td>
             </tr>
             <tr>
-                <td>Gameserver Port</td> <td>'.$gsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['gameport'], $server['gameport']).'</span></tr>
+                <td>Gameserver Port</td> <td>'.echoOr($_POST['gameport'], $server['gameport']).'</td><td>'.$gsStatus.'</td>
             </tr>
             <tr>
-                <td>Game</td> <td>'.echoOr($_POST['game'], $server['game']).'</td>
+                <td>Game</td> <td>'.echoOr($_POST['game'], $server['game']).'</td><td></td>
             </tr>
             <tr>
-                <td>Players online</td> <td></td>
+                <td>Players online</td> <td></td> <td></td>
             </tr>
             <tr>
-                <td>SSH User</td> <td>'.echoOr(translateID($_POST['sshuser'], 'users', 'username'), translateID($server['sshuser'], 'users', 'username')).'</td>
+                <td>SSH User</td> <td>'.echoOr(translateID($_POST['sshuser'], 'users', 'username'), translateID($server['sshuser'], 'users', 'username')).'</td><td></td>
             </tr>
             <tr>
-                <td>Terminal</td> <td>'.echoOr(translateID($_POST['terminal'], 'terminals', 'name'), translateID($server['type'], 'terminals', 'name')).'</td>
+                <td>Terminal</td> <td>'.echoOr(translateID($_POST['terminal'], 'terminals', 'name'), translateID($server['type'], 'terminals', 'name')).'</td><td></td>
             </tr>
             <!--<tr>
-                <td>Host Status</td> <td>'.$hsStatus.'</td>
+                <td>Host Status</td> <td>'.$hsStatus.'</td><td></td>
             </tr>
             <tr>
-                <td>Gameserver Status</td> <td>'.$gsStatus.'</td>
+                <td>Gameserver Status</td> <td>'.$gsStatus.'</td><td></td>
             </tr>-->
         </tbody>
         </table>
@@ -234,7 +239,7 @@ while ($server = $result->fetch_assoc()) {
         </div>
         
         <div class="card">
-        <h4 class="card-header">Actions</h4>
+        <h4 class="card-header bg-info">Actions</h4>
         <div class="card-body">
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
