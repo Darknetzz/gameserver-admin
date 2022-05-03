@@ -6,6 +6,7 @@ define('CFG_TITLE', "PHPGSAdmin");              # Friendly name shown in browser
 define('CFG_LOGO', null);                       # Link or filepath to logo in navbar
 define('CFG_VERSION', "1.0");                   # Version number
 define('CFG_TABLEHEADERCOLOR', "secondary");    # Table header color in bootstrap (primary, secondary, info, warning, danger etc)
+define('CFG_TABLESTYLE', "hover");              # Table style (hover, bordered, default etc)
 
 # Servers
 define('CFG_FSOCKTIMEOUT', 3);                  # Timeout of the gameserver pinger

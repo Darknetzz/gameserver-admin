@@ -101,7 +101,7 @@ while ($server = $result->fetch_assoc()) {
     # the alternative is to put the updates in a seperate file, cba right now.
     echo '
         <h3>Server information</h3>
-        <table class="table table-hover">
+        <table class="table table-'.CFG_TABLESTYLE.'">
         <thead>
         <tr class="bg-'.CFG_TABLEHEADERCOLOR.'">
             <th>Property</th> <th>Value</th> <th>Status (if applicable)</th>
@@ -241,7 +241,7 @@ while ($server = $result->fetch_assoc()) {
         <div class="card">
         <h4 class="card-header bg-'.CFG_TABLEHEADERCOLOR.'">Actions</h4>
         <div class="card-body">
-            <table class="table table-hover">
+            <table class="table table-'.CFG_TABLESTYLE.'">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>
                 <tr><td>Broadcast message</td> <td><button data-bs-toggle="modal" data-bs-target="#broadcast'.$server['id'].'" class="btn btn-primary '.$broadcastBtn.'">'.$broadcastText.'</button></td>
                 <tr><td>Open remote terminal</td><td><a href="?p=terminal&id='.$server['id'].'" class="btn btn-primary '.$terminalBtn.'">'.$terminalText.'</a> '.$sshExternal.'</td>
