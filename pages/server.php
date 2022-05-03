@@ -103,7 +103,7 @@ while ($server = $result->fetch_assoc()) {
         <h3>Server information</h3>
         <table class="table table-border">
         <thead>
-        <tr class="bg-info">
+        <tr class="bg-'.CFG_TABLEHEADERCOLOR.'">
             <th>Property</th> <th>Value</th> <th>Status (if applicable)</th>
         </tr>
         </thead>
@@ -239,7 +239,7 @@ while ($server = $result->fetch_assoc()) {
         </div>
         
         <div class="card">
-        <h4 class="card-header bg-info">Actions</h4>
+        <h4 class="card-header bg-'.CFG_TABLEHEADERCOLOR.'">Actions</h4>
         <div class="card-body">
             <table class="table table-default">
                 <tr><td>Edit server</td> <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit'.$server['id'].'">Edit</button></td>

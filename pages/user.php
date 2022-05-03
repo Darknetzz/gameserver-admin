@@ -11,6 +11,11 @@ if (isset($_GET['id'])) {
     
     if ($result->num_rows == 1) {
     echo "<table class='table table-default'>";
+    echo "
+        <tr class='bg-".CFG_TABLEHEADERCOLOR."'>
+            <th>Property</th> <th>Value</th>
+        </tr>
+    ";
     while ($user = $result->fetch_assoc()) {
 
         if ($user['ssh'] == 1) {

@@ -3,12 +3,12 @@ $getcfg = "SELECT * FROM config ORDER BY category";
 $getcfg = mysqli_query($sqlcon, $getcfg);
 
 echo "<table class='table'>";
-echo "<tr class='bg-info'><th>Variable</th><th>Value</th><th>Description</th></tr>";
+echo "<tr class='bg-".CFG_TABLEHEADERCOLOR."'><th>Variable</th><th>Value</th><th>Description</th></tr>";
 $curcat = "";
 while ($config = $getcfg->fetch_assoc()) {
     if ($curcat <> $config['category']) {
         $curcat = $config['category'];
-        echo "<tr class='bg-info'><th colspan='100%'>$curcat</th></tr>";
+        echo "<tr class='bg-".CFG_TABLEHEADERCOLOR."'><th colspan='100%'>$curcat</th></tr>";
     }
     echo "
     <tr>
