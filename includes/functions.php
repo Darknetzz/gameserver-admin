@@ -81,12 +81,12 @@ function pingServer($ip, $verbose = false) {
 
 function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
   if (!empty($ip) && !empty($port)) {
-  $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
+  $fp = @fsockopen($ip, $port, $errno, $errstr, $timeout);
     if (!$fp) {
-        fclose($fp);
+        @fclose($fp);
         return "<span class='badge bg-danger'>Offline</span>"; # no connection
     } else {
-        fclose($fp);
+        @fclose($fp);
         return "<span class='badge bg-success'>Online</span>"; # connection established
     }
   } else {
@@ -133,7 +133,13 @@ function selectorFromDB($table, $column, $valuecol = "id", $name = null) {
   $select = "<select name='$name' class='form-select'>";
 
   while ($row = $query->fetch_assoc()) {
-    $select .= "<option value='$row[$valuecol]'>$row[$column]</option>";
+    # if currently set value, default to selected
+    # no way to check for this right now, comparison would be in a different sql query
+    if (1==1) {
+      $select .= "<option value='$row[$valuecol]'>$row[$column]</option>";
+    } else {
+      $select .= "<option value='$row[$valuecol]' selected>$row[$column]</option>";
+    }
   }
 
   $select .= "</select>";
@@ -141,5 +147,13 @@ function selectorFromDB($table, $column, $valuecol = "id", $name = null) {
 } else {
   return null;
 }
+}
+
+function echoOr($first, $second) {
+  if (!empty($first)) {
+    return $first;
+  } else {
+    return $second;
+  }
 }
 ?>

@@ -34,6 +34,33 @@ while ($server = $result->fetch_assoc()) {
             echo "<div class='alert alert-success'>Server rebooted!</div>";
         }
     }
+    if (isset($_POST['edit'])) {
+        $id = $_POST['id'];
+        $getServers = "UPDATE servers SET `name` = ?, `os` = ?, `ip` = ?, `externalip` = ?,
+        `sshport` = ?, `externalsshport` = ?, `gameport` = ?, `game` = ?, `sshuser` = ?,
+        `type` = ? WHERE `id` = ?";
+
+        $stmt = $sqlcon->prepare($getServers);
+        $stmt->bind_param("sissiiisiii", $_POST['sname'], $_POST['os'], $_POST['ip'],
+                                         $_POST['externalip'], $_POST['sshport'], $_POST['externalsshport'],
+                                         $_POST['gameport'], $_POST['game'], $_POST['sshuser'], $_POST['terminal'], $_POST['id']);
+        $stmt->execute();
+
+        if (!empty($sqlcon->error)) {
+            echo "<div class='alert alert-danger'>Error in query: ".$sqlcon->error."</div>";
+        } else {
+            echo "<div class='alert alert-success'>Server updated!</div>";
+        }
+    }
+    if (isset($_POST['delete'])) {
+        $id = $_POST['id'];
+
+        $getServers = "DELETE * FROM servers WHERE id = ?";
+
+        $stmt = $sqlcon->prepare($getServers);
+        $stmt->bind_param("i", $_GET['id']);
+        echo "Would delete";
+    }
 
     $hsStatus = pingServer($server['ip']);
     $ehsStatus = pingServer($server['externalip']);
@@ -70,44 +97,44 @@ while ($server = $result->fetch_assoc()) {
 
     }
 
-    # Create modal for each server
-    # Notice the <td> at the start, clever hack to get a "table inside table" kinda
+    # echoOr function is a bit messy, but it works (print a if set, else print b).
+    # the alternative is to put the updates in a seperate file, cba right now.
     echo '
         <h3>Server information</h3>
         <table class="table table-border">
         <tbody>
             <tr>
-                <td>Name</td> <td><span class="badge bg-info">'.$server['name'].'</span></td>
+                <td>Name</td> <td><span class="badge bg-info">'.echoOr($_POST['sname'], $server['name']).'</span></td>
             </tr>
             <tr>
-                <td>OS</td> <td>'.translateID($server['os'], 'os', 'name').'</td>
+                <td>OS</td> <td>'.echoOr(translateID($_POST['os'], 'os', 'name'), translateID($server['os'], 'os', 'name')).'</td>
             </tr>
             <tr>
-                <td>IP</td> <td>'.$hsStatus.' <span class="badge bg-secondary">'.$server['ip'].'</span></tr>
+                <td>IP</td> <td>'.$hsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['ip'], $server['ip']).'</span></tr>
             </tr>
             <tr>
-                <td>External IP</td> <td>'.$ehsStatus.' <span class="badge bg-secondary">'.$server['externalip'].'</span></tr>
+                <td>External IP</td> <td>'.$ehsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['externalip'], $server['externalip']).'</span></tr>
             </tr>
             <tr>
-                <td>SSH Port</td> <td>'.$shStatus.' <span class="badge bg-secondary">'.$server['sshport'].'</span></td></tr>
+                <td>SSH Port</td> <td>'.$shStatus.' <span class="badge bg-secondary">'.echoOr($_POST['sshport'], $server['sshport']).'</span></td></tr>
             </tr>
             <tr>
-                <td>External SSH Port</td> <td>'.$eshStatus.' <span class="badge bg-secondary">'.$server['externalsshport'].'</span></tr>
+                <td>External SSH Port</td> <td>'.$eshStatus.' <span class="badge bg-secondary">'.echoOr($_POST['externalsshport'], $server['externalsshport']).'</span></tr>
             </tr>
             <tr>
-                <td>Gameserver Port</td> <td>'.$gsStatus.' <span class="badge bg-secondary">'.$server['gameport'].'</span></tr>
+                <td>Gameserver Port</td> <td>'.$gsStatus.' <span class="badge bg-secondary">'.echoOr($_POST['gameport'], $server['gameport']).'</span></tr>
             </tr>
             <tr>
-                <td>Game</td> <td>'.$server['game'].'</td>
+                <td>Game</td> <td>'.echoOr($_POST['game'], $server['game']).'</td>
             </tr>
             <tr>
                 <td>Players online</td> <td></td>
             </tr>
             <tr>
-                <td>SSH User</td> <td>'.translateID($server['sshuser'], 'users', 'username').'</td>
+                <td>SSH User</td> <td>'.echoOr(translateID($_POST['sshuser'], 'users', 'username'), translateID($server['sshuser'], 'users', 'username')).'</td>
             </tr>
             <tr>
-                <td>Terminal</td> <td>'.translateID($server['type'], 'terminals', 'name').'</td>
+                <td>Terminal</td> <td>'.echoOr(translateID($_POST['terminal'], 'terminals', 'name'), translateID($server['type'], 'terminals', 'name')).'</td>
             </tr>
             <!--<tr>
                 <td>Host Status</td> <td>'.$hsStatus.'</td>
@@ -128,21 +155,23 @@ while ($server = $result->fetch_assoc()) {
             <div class="modal-body">
                 <table class="table">
                 <form action="" method="POST">
-                <tr><td>Name</td><td><input type="text" class="form-control" value="'.$server['name'].'"></td></tr>
-                <tr><td>OS</td><td>'.selectorFromDB('os', 'name').'</td></tr>
-                <tr><td>Internal IP</td><td><input type="text" class="form-control" value="'.$server['ip'].'"></td></tr>
-                <tr><td>Internal SSH Port</td><td><input type="number" class="form-control" value="'.$server['sshport'].'"></td></tr>
-                <tr><td>External IP</td><td><input type="text" class="form-control" value="'.$server['externalip'].'"></td></tr>
-                <tr><td>External SSH Port</td><td><input type="number" class="form-control" value="'.$server['externalsshport'].'"></td></tr>
-                <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username').'</td></tr>
-                <tr><td>Gameserver Port</td><td><input type="number" class="form-control" value="'.$server['gameport'].'"></td></tr>
-                <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name').'</td></tr>
-                </form>
+                <tr><td>Name</td><td><input name="sname" type="text" class="form-control" value="'.echoOr($_POST['sname'],$server['name']).'"></td></tr>
+                <tr><td>OS</td><td>'.selectorFromDB('os', 'name', 'id', 'os').'</td></tr>
+                <tr><td>Internal IP</td><td><input name="ip" type="text" class="form-control" value="'.echoOr($_POST['ip'],$server['ip']).'"></td></tr>
+                <tr><td>Internal SSH Port</td><td><input name="sshport" type="number" class="form-control" value="'.echoOr($_POST['sshport'],$server['sshport']).'"></td></tr>
+                <tr><td>External IP</td><td><input name="externalip" type="text" class="form-control" value="'.echoOr($_POST['externalip'],$server['externalip']).'"></td></tr>
+                <tr><td>External SSH Port</td><td><input name="externalsshport" type="number" class="form-control" value="'.echoOr($_POST['externalsshport'],$server['externalsshport']).'"></td></tr>
+                <tr><td>SSH User</td><td>'.selectorFromDB('users', 'username', 'id', 'sshuser').'</td></tr>
+                <tr><td>Game</td><td><input name="game" type="text" class="form-control" value="'.echoOr($_POST['game'],$server['game']).'"></td></tr>
+                <tr><td>Gameserver Port</td><td><input name="gameport" type="number" class="form-control" value="'.echoOr($_POST['gameport'],$server['gameport']).'"></td></tr>
+                <tr><td>Terminal</td><td>'.selectorFromDB('terminals', 'name', 'id', 'terminal').'</td></tr>
                 </table>
             </div>
             <div class="modal-footer">
+                <input type="hidden" name="id" value="'.$server['id'].'">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save changes</button>
+                <input type="submit" class="btn btn-success" name="edit" value="Save changes">
+            </form>
             </div>
             </div>
         </div>
