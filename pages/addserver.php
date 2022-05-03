@@ -1,6 +1,7 @@
 <h3>New server</h3>
         <?php
         if (isset($_POST['addserver'])) {
+            if (!empty($_POST['sname'])) {
             $addServer = "INSERT INTO servers 
             (`name`, `os`, `ip`, `sshport`, `gameport`, `game`, `type`, `sshuser`, `externalip`, `externalsshport`) 
             VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -15,7 +16,10 @@
                             $_POST['externalip'], $_POST['externalsshport']);
             $stmt->execute();
             echo "<div class='alert alert-success'>Server $_POST[sname] added!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>You must give the server a name</div>";
         }
+    }
         ?>
         <form action="" method="POST">
         <table class="table table-border">
