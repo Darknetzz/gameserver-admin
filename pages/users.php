@@ -3,7 +3,7 @@ $getUsers = "SELECT * FROM users";
 $getUsers = mysqli_query($sqlcon, $getUsers);
 
 if ($getUsers && $getUsers->num_rows > 0) {
-echo "<table class='table table-bordered'>
+echo "<table class='table table-hover'>
 <tr class='bg-".CFG_TABLEHEADERCOLOR."'>
     <th>Username</th>
     <th>Role</th>

@@ -3,7 +3,7 @@ $getServers = "SELECT * FROM servers";
 $getServers = mysqli_query($sqlcon, $getServers);
 
 if ($getServers && $getServers->num_rows > 0) {
-echo "<table class='table table-bordered'>
+echo "<table class='table table-hover'>
 <thead>
 <tr class='bg-".CFG_TABLEHEADERCOLOR."'>
     <th>Name</th>

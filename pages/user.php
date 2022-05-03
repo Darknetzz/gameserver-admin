@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
     $result = $stmt->get_result();
     
     if ($result->num_rows == 1) {
-    echo "<table class='table table-default'>";
+    echo "<table class='table table-hover'>";
     echo "
         <tr class='bg-".CFG_TABLEHEADERCOLOR."'>
             <th>Property</th> <th>Value</th>
