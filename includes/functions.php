@@ -83,10 +83,14 @@ function pingGameServer($ip, $port, $timeout = CFG_FSOCKTIMEOUT) {
   if (!empty($ip) && !empty($port)) {
   $fp = @fsockopen($ip, $port, $errno, $errstr, $timeout);
     if (!$fp) {
+      if (is_resource($fp)) {
         @fclose($fp);
+      }
         return "<span class='badge bg-danger'>Offline</span>"; # no connection
     } else {
-        @fclose($fp);
+      if (is_resource($fp)) {
+          @fclose($fp);
+      }
         return "<span class='badge bg-success'>Online</span>"; # connection established
     }
   } else {
