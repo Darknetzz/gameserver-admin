@@ -54,9 +54,6 @@
             <tr>
                 <td>SSH User</td> <td><?php echo selectorFromDB("users", "username"); ?></td>
             </tr>
-            <tr>
-                <td>Terminal</td> <td><?php echo selectorFromDB("terminals", "name", "id", "terminal"); ?></td>
-            </tr>
         </tbody>
         </table>
         <input type="submit" name="addserver" value="Add server" class="btn btn-success">
