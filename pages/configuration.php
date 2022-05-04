@@ -21,7 +21,7 @@ echo "<tr><td colspan='100%'><input type='submit' value='Save config' class='btn
 echo "</table>";
 echo "<hr>";
 echo "<h3>Configuration file</h3>
-      Must be edited from includes/config.php";
+      Must be edited from <code>includes/config.php</code>";
 echo "<table class='table table-".CFG_TABLESTYLE."'>";
 echo "<tr class='bg-".CFG_TABLEHEADERCOLOR."'>
     <th>Var</th> <th>Val</th>
