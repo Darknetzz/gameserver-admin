@@ -35,6 +35,7 @@ while ($server = $result->fetch_assoc()) {
         }
     }
     if (isset($_POST['edit'])) {
+        if (!empty($_POST['sname'])) {
         $id = $_POST['id'];
         $getServers = "UPDATE servers SET `name` = ?, `os` = ?, `ip` = ?, `externalip` = ?,
         `sshport` = ?, `externalsshport` = ?, `gameport` = ?, `game` = ?, `sshuser` = ?,
@@ -51,6 +52,9 @@ while ($server = $result->fetch_assoc()) {
         } else {
             echo "<div class='alert alert-success'>Server updated!</div>";
         }
+    } else {
+        echo "<div class='alert alert-danger'>The server must have a name!</div>";
+    }
     }
     if (isset($_POST['delete'])) {
         $id = $_POST['id'];
