@@ -4,23 +4,27 @@ $getUsers = mysqli_query($sqlcon, $getUsers);
 
 if ($getUsers && $getUsers->num_rows > 0) {
 echo "<table class='table table-".CFG_TABLESTYLE."'>
+<thead>
 <tr class='bg-".CFG_TABLEHEADERCOLOR."'>
     <th>Username</th>
     <th>Role</th>
     <th>SSH</th>
     <th>Web</th>
-</tr>";
+</tr>
+</thead>";
 while ($user = $getUsers->fetch_assoc()) {
     $sshEnabled = ($user['ssh'] == 1) ? "<span class='badge bg-success'>Enabled</span>" : "<span class='badge bg-danger'>Disabled</span>";
     $webEnabled = ($user['web'] == 1) ? "<span class='badge bg-success'>Enabled</span>" : "<span class='badge bg-danger'>Disabled</span>";
 
     echo "
+    <tbody>
     <tr>
     <td><a href='?p=user&id=$user[id]'>$user[username]</a></td>
     <td>".translateRole($user['role'])."</td>
     <td>$sshEnabled</td>
     <td>$webEnabled</td>
-    </tr>";
+    </tr>
+    </tbody>";
 }
 echo "</table>";
 } else {

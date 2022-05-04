@@ -160,4 +160,11 @@ function echoOr($first, $second) {
     return $second;
   }
 }
+
+function returnConstants ($prefix = "CFG") {
+  foreach (get_defined_constants() as $key=>$value)
+      if (substr($key,0,strlen($prefix))==$prefix)  $dump[$key] = $value;
+  if(empty($dump)) { return "Error: No Constants found with prefix '".$prefix."'"; }
+  else { return $dump; }
+}
 ?>

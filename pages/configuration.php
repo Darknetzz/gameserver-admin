@@ -19,4 +19,14 @@ while ($config = $getcfg->fetch_assoc()) {
 }
 echo "<tr><td colspan='100%'><input type='submit' value='Save config' class='btn btn-success'></td></tr>";
 echo "</table>";
+echo "<hr>";
+echo "<h3>Configuration file</h3>
+      Must be edited from includes/config.php";
+echo "<table class='table table-".CFG_TABLESTYLE."'>";
+echo "<tr class='bg-".CFG_TABLEHEADERCOLOR."'>
+    <th>Var</th> <th>Val</th>
+</tr>";
+foreach (returnConstants("CFG") as $var => $val) {
+    echo "<tr><td>$var</td> <td>$val</td></tr>";
+}
 ?>
