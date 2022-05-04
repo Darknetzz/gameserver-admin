@@ -29,7 +29,8 @@ if (CFG_REQUIRELOGIN == true && !isset($_SESSION['id'])) {
     include_once("pages/login.php");
 } else {
 if (isset($_GET['p'])) {
-    $fp = "pages/".$_GET['p'].".php";
+    $p = preg_replace("/[^a-zA-Z0-9]+/", "", $_GET['p']);
+    $fp = "pages/".$p.".php";
     if (file_exists($fp)) {
         include_once($fp);
     } else {
