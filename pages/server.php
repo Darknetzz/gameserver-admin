@@ -59,10 +59,10 @@ while ($server = $result->fetch_assoc()) {
     if (isset($_POST['delete'])) {
         $id = $_POST['id'];
 
-        $getServers = "DELETE * FROM servers WHERE id = ?";
+        $delServer = "DELETE FROM servers WHERE id = ?";
 
-        $stmt = $sqlcon->prepare($getServers);
-        $stmt->bind_param("i", $_GET['id']);
+        $stmt = $sqlcon->prepare($delServer);
+        $stmt->bind_param("i", $id);
         echo "<div class='alert alert-success'>Server deleted</div>";
     }
 
