@@ -63,6 +63,7 @@ while ($server = $result->fetch_assoc()) {
 
         $stmt = $sqlcon->prepare($delServer);
         $stmt->bind_param("i", $id);
+        $stmt->execute();
         echo "<div class='alert alert-success'>Server deleted</div>";
     }
 
