@@ -219,7 +219,7 @@ while ($server = $result->fetch_assoc()) {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form action="" method="POST">
-                <button type="submit" name="reboot" value="Reboot" class="btn btn-danger">
+                <input type="submit" name="reboot" value="Reboot" class="btn btn-danger">
                 </form>
             </div>
             </div>
