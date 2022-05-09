@@ -63,7 +63,7 @@ while ($server = $result->fetch_assoc()) {
 
         $stmt = $sqlcon->prepare($getServers);
         $stmt->bind_param("i", $_GET['id']);
-        echo "Would delete";
+        echo "<div class='alert alert-success'>Server deleted</div>";
     }
 
     $hsStatus = pingServer($server['ip']);
@@ -198,7 +198,9 @@ while ($server = $result->fetch_assoc()) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Restart</button>
+                <form action="" method="POST">
+                <input type="submit" name="restart" value="Restart" class="btn btn-danger">
+                </form>
             </div>
             </div>
         </div>
@@ -216,7 +218,9 @@ while ($server = $result->fetch_assoc()) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Reboot</button>
+                <form action="" method="POST">
+                <button type="submit" name="reboot" value="Reboot" class="btn btn-danger">
+                </form>
             </div>
             </div>
         </div>
@@ -236,7 +240,9 @@ while ($server = $result->fetch_assoc()) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">DELETE</button>
+                <form action="" method="POST">
+                <input type="submit" name="delete" value="DELETE" class="btn btn-danger">
+                </form>
             </div>
             </div>
         </div>
