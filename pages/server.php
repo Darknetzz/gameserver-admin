@@ -69,7 +69,11 @@ while ($server = $result->fetch_assoc()) {
     $hsStatus = pingServer($server['ip']);
     $ehsStatus = pingServer($server['externalip']);
     $egsStatus = pingGameServer($server['externalip'], $server['gameport']);
-    $eshStatus = pingGameServer($server['externalip'], $server['sshport']);
+    if ($server['externalsshport'] !== 0) { 
+        $eshStatus = pingGameServer($server['externalip'], $server['externalsshport']);
+    } else {
+        $eshStatus = "<span class='badge bg-secondary'>Not enabled</span>";
+    }
     $gsStatus = pingGameServer($server['ip'], $server['gameport']);
     $shStatus = pingGameServer($server['ip'], $server['sshport']);
 
