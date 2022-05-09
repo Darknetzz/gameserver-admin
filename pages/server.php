@@ -14,7 +14,7 @@ while ($server = $result->fetch_assoc()) {
     if (isset($_POST['restart'])) {
         # Restart gameserver
         # $cmd = "cd /home/$user/;./$user restart";
-        $session = establishSSH($server['ip'], $server['sshport'], translateID($_POST['sshuser'], 'users', 'username'), strdCrypt($server['sshpass']));
+        $session = establishSSH($server['ip'], $server['sshport'], translateID($server['sshuser'], 'users', 'username'), strdCrypt($server['sshpass']));
         $ssh = sendSSH($session, $cmd);
         if (!$ssh) {
             echo "<div class='alert alert-danger'>Unable to restart server.</div>";
@@ -25,7 +25,7 @@ while ($server = $result->fetch_assoc()) {
     if (isset($_POST['reboot'])) {
         # Reboot server
         $cmd = "reboot";
-        $session = establishSSH($server['ip'], $server['sshport'], translateID($_POST['sshuser'], 'users', 'username'), strdCrypt($server['sshpass']));
+        $session = establishSSH($server['ip'], $server['sshport'], translateID($server['sshuser'], 'users', 'username'), strdCrypt($server['sshpass']));
         $ssh = sendSSH($session, $cmd);
         if (!$ssh) {
             echo "<div class='alert alert-danger'>Unable to reboot server.</div>";
