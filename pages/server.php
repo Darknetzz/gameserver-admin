@@ -199,6 +199,7 @@ while ($server = $result->fetch_assoc()) {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form action="" method="POST">
+                <input type="hidden" name="id" value="'.$server['id'].'">
                 <input type="submit" name="restart" value="Restart" class="btn btn-danger">
                 </form>
             </div>
@@ -219,6 +220,7 @@ while ($server = $result->fetch_assoc()) {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form action="" method="POST">
+                <input type="hidden" name="id" value="'.$server['id'].'">
                 <input type="submit" name="reboot" value="Reboot" class="btn btn-danger">
                 </form>
             </div>
@@ -241,6 +243,7 @@ while ($server = $result->fetch_assoc()) {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form action="" method="POST">
+                <input type="hidden" name="id" value="'.$server['id'].'">
                 <input type="submit" name="delete" value="DELETE" class="btn btn-danger">
                 </form>
             </div>
