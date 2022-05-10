@@ -11,6 +11,7 @@ echo "<table class='table table-".CFG_TABLESTYLE."'>
     <th>Game</th>
     <th>Host</th>
     <th>Gameserver</th>
+    <th>Actions</th>
 </tr>
 </thead>";
 
@@ -27,6 +28,9 @@ while ($server = $getServers->fetch_assoc()) {
     <td>$server[game]</td>
     <td>$hsStatus</td>
     <td>$gsStatus</td>
+    <td>
+    <span class='mdi mdi-restart'></span>
+    </td>
     </tr>
     </tbody>";
 }
