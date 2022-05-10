@@ -6,9 +6,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="?p=servers">Servers</a>
-        <a class="nav-link" href="?p=users">Users</a>
-        <a class="nav-link" href="?p=configuration">Configuration</a>
+        <a class="nav-link" href="?p=servers"><span class='mdi mdi-server'></span> Servers</a>
+        <a class="nav-link" href="?p=users"><span class='mdi mdi-account-multiple'></span> Users</a>
+        <a class="nav-link" href="?p=configuration"><span class='mdi mdi-cog'></span> Configuration</a>
       </div>
     </div>
   </div>
