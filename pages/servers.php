@@ -29,7 +29,9 @@ while ($server = $getServers->fetch_assoc()) {
     <td>$hsStatus</td>
     <td>$gsStatus</td>
     <td>
+    <span class='mdi mdi-console'></span>
     <span class='mdi mdi-restart'></span>
+    <span class='mdi mdi-delete'></span>
     </td>
     </tr>
     </tbody>";
